@@ -48,9 +48,9 @@ public class HomeController {
 		site.setIdCat(1);
 		site.setNbClick(0);
 		
-		/*siteDao.creer( site );
+		siteDao.creer( site );
 		
-		Site site2 = siteDao.trouver(6);
+		/*Site site2 = siteDao.trouver(6);
 
 		site2.setDescription("MODIFICATION OK2 !");
 		siteDao.modifier(site2);
