@@ -163,12 +163,6 @@ public class CategorieDaoImpl implements ObjetDao {
 	}
 
 	@Override
-	public Utilisateur findUser(String email) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void modifyUser(Utilisateur utilisateur) throws DAOException {
 		// TODO Auto-generated method stub
 		
@@ -212,6 +206,12 @@ public class CategorieDaoImpl implements ObjetDao {
 
 	@Override
 	public Utilisateur getComUser(Commentaire commentaire) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Utilisateur findUser(Integer id) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}

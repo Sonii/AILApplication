@@ -20,7 +20,7 @@ import static com.esiea.lookat.dao.DAOUtilitaire.*;
 public class SiteDaoImpl implements ObjetDao {
 	
 
-    private static final String SQL_SELECT_PAR_ID = "SELECT id, url, nom, description, idCat, nbClick, idUser FROM site WHERE id = ?";
+    private static final String SQL_SELECT_PAR_ID = "SELECT * FROM site WHERE id = ?";
     private static final String SQL_INSERT = "INSERT INTO site (url, nom, description, idCat, nbClick, idUser) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE site SET id = ? , url = ?, nom = ?, description = ?, idCat = ?, nbClick = ?, idUser = ? WHERE id = ?";
     private static final String SQL_DELETE = "DELETE FROM site WHERE id = ?";
@@ -268,11 +268,6 @@ public class SiteDaoImpl implements ObjetDao {
 		
 	}
 
-	@Override
-	public Utilisateur findUser(String email) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void modifyUser(Utilisateur utilisateur) throws DAOException {
@@ -314,6 +309,12 @@ public class SiteDaoImpl implements ObjetDao {
 	@Override
 	public List<Site> getCategorieSites(Categorie catalogue)
 			throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Utilisateur findUser(Integer id) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}

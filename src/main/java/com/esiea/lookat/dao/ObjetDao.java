@@ -35,7 +35,7 @@ public interface ObjetDao {
     /* ----------- Methods For Utilisateur Class ----------- */
     
     public void createUser(Utilisateur utilisateur) throws DAOException;
-    public Utilisateur findUser(String email) throws DAOException;
+    public Utilisateur findUser(Integer id) throws DAOException;
     public void modifyUser(Utilisateur utilisateur) throws DAOException;
     public void deleteUser(Utilisateur utilisateur) throws DAOException;
     

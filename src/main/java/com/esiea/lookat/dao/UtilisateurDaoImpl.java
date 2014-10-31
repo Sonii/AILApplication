@@ -1,8 +1,14 @@
 package com.esiea.lookat.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+
+import static com.esiea.lookat.dao.DAOUtilitaire.*;
 
 import com.esiea.lookat.entities.Categorie;
 import com.esiea.lookat.entities.Commentaire;
@@ -11,6 +17,11 @@ import com.esiea.lookat.entities.Utilisateur;
 
 public class UtilisateurDaoImpl implements ObjetDao{
 	
+    private static final String SQL_SELECT_PAR_ID = "SELECT * FROM utilisaterus WHERE id = ?";
+    private static final String SQL_INSERT = "INSERT INTO utilisateurs (pseudo, password, email) VALUES (?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE utilisateurs SET id = ? , pseudo = ?, password = ?, email = ? WHERE id = ?";
+    private static final String SQL_DELETE = "DELETE FROM utilisateurs WHERE id = ?";
+ 
 	Logger logger = Logger.getLogger(UtilisateurDaoImpl.class);
 	private DAOFactory daoFactory;
 
@@ -29,25 +40,99 @@ public class UtilisateurDaoImpl implements ObjetDao{
 	
 	@Override
 	public void createUser(Utilisateur utilisateur) throws DAOException {
-		// TODO Auto-generated method stub
+		Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet valeursAutoGenerees = null;
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT, true, utilisateur.getPseudo(), utilisateur.getPassword(), utilisateur.getEmail());
+            int statut = preparedStatement.executeUpdate();
+            /* Analyse du statut retourné par la requête d'insertion */
+            if ( statut == 0 ) {
+                throw new DAOException( "Échec de la création du site, aucune ligne ajoutée dans la table." );
+            }
+            /* Récupération de l'id auto-généré par la requête d'insertion */
+            valeursAutoGenerees = preparedStatement.getGeneratedKeys();
+            if ( valeursAutoGenerees.next() ) {
+                /* Puis initialisation de la propriété id du bean Utilisateur avec sa valeur */
+                utilisateur.setId( valeursAutoGenerees.getInt( 1 ) );
+            } else {
+                throw new DAOException( "Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné." );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( valeursAutoGenerees, preparedStatement, connexion );
+        }
 		
 	}
 
 	@Override
-	public Utilisateur findUser(String email) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+	public Utilisateur findUser(Integer id) throws DAOException {
+		Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Utilisateur user = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ID, false, id);
+            resultSet = preparedStatement.executeQuery();
+            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+            if (resultSet.next()) {
+                user = mapUtilisateur(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+        }
+        return user;
 	}
 
 	@Override
 	public void modifyUser(Utilisateur utilisateur) throws DAOException {
-		// TODO Auto-generated method stub
+		Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_UPDATE, false, utilisateur.getId(), utilisateur.getPseudo(), utilisateur.getPassword(), utilisateur.getEmail());
+            int statut = preparedStatement.executeUpdate();
+            /* Analyse du statut retourné par la requête d'insertion */
+            if ( statut == 0 ) {
+                throw new DAOException( "Échec de la création du site, aucune ligne ajoutée dans la table." );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+        }
 		
 	}
 
 	@Override
 	public void deleteUser(Utilisateur utilisateur) throws DAOException {
-		// TODO Auto-generated method stub
+		Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_DELETE, false, utilisateur.getId());
+            int statut = preparedStatement.executeUpdate();
+            /* Analyse du statut retourné par la requête d'insertion */
+            if ( statut == 0 ) {
+                throw new DAOException( "Échec de la création du site, aucune ligne ajoutée dans la table." );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+        }
 		
 	}
 
