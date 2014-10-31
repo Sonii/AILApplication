@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -19,11 +20,15 @@ import static com.esiea.lookat.dao.DAOUtilitaire.*;
 public class SiteDaoImpl implements ObjetDao {
 	
 
-    private static final String SQL_SELECT_PAR_ID = "SELECT id, url, nom, description, idCat, nbClick FROM Site WHERE id = ?";
-    private static final String SQL_INSERT = "INSERT INTO Site (url, nom, description, idCat, nbClick) VALUES (?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE Site SET id = ? , url = ?, nom = ?, description = ?, idCat = ?, nbClick = ? WHERE id = ?";
+    private static final String SQL_SELECT_PAR_ID = "SELECT id, url, nom, description, idCat, nbClick, idUser FROM Site WHERE id = ?";
+    private static final String SQL_INSERT = "INSERT INTO Site (url, nom, description, idCat, nbClick, idUser) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE Site SET id = ? , url = ?, nom = ?, description = ?, idCat = ?, nbClick = ?, idUser = ? WHERE id = ?";
     private static final String SQL_DELETE = "DELETE FROM Site WHERE id = ?";
-
+    private static final String SQL_SELECT_ALLCOM_BY_SITE = "SELECT commentaires.id, commentaires.etoile, commentaires.idSite, commentaires.contenu, commentaires.idUser FROM commentaires, site WHERE site.id = commentaires.idSite AND site.id = ?";
+    private static final String SQL_SELECT_CAT_BY_SITE = "SELECT categorie.id, categorie.nom FROM categories, site WHERE site.idCat = categories.id AND site.id = ?";
+    private static final String SQL_SELECT_ALLSITE = "SELECT * FROM Site";
+    private static final String SQL_SELECT_USER_BY_SITE = "SELECT utilisateurs.id, utilisateurs.pseudo, utilisateurs.password, utilisateurs.email FROM utilisateurs, site WHERE site.idUser = utilisateurs.id AND site.id = ?";
+    
     private DAOFactory daoFactory;
     Logger logger = Logger.getLogger(SiteDaoImpl.class);
 
@@ -38,26 +43,95 @@ public class SiteDaoImpl implements ObjetDao {
 	
 	@Override // liste de commentaires pour un site
 	public List<Commentaire> getlistComs(Site site) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		 Connection connexion = null;
+	        PreparedStatement preparedStatement = null;
+	        ResultSet resultSet = null;
+	        ArrayList <Commentaire> coms = new ArrayList <Commentaire>();
+
+	        try {
+	            connexion = daoFactory.getConnection();
+	            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_ALLCOM_BY_SITE, false, site.getId());
+	            resultSet = preparedStatement.executeQuery();
+	            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+	            while (resultSet.next()) {
+	                coms.add( mapCommentaire(resultSet));
+	            }
+	        } catch (SQLException e) {
+	            throw new DAOException(e);
+	        } finally {
+	            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	        }
+	        return coms;
+	    }
+
 
 	@Override // Categorie de site
 	public Categorie getSiteCategorie(Site site) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		 Connection connexion = null;
+	        PreparedStatement preparedStatement = null;
+	        ResultSet resultSet = null;
+	        Categorie cat = null;
+
+	        try {
+	            connexion = daoFactory.getConnection();
+	            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_CAT_BY_SITE, false, site.getId());
+	            resultSet = preparedStatement.executeQuery();
+	            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+	            if (resultSet.next()) {
+	                cat = mapCategorie(resultSet);
+	            }
+	        } catch (SQLException e) {
+	            throw new DAOException(e);
+	        } finally {
+	            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	        }
+	        return cat;
 	}
 
 	@Override // la liste de sites
 	public List<Site> getAllSites() throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        ArrayList <Site> sites = new ArrayList <Site>();
+
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_ALLSITE, false);
+            resultSet = preparedStatement.executeQuery();
+            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+            while (resultSet.next()) {
+                sites.add(mapSite(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+        }
+        return sites;
 	}
 
 	@Override // utilisateur du site
 	public Utilisateur getSiteUser(Site site) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		 Connection connexion = null;
+	        PreparedStatement preparedStatement = null;
+	        ResultSet resultSet = null;
+	        Utilisateur user = null;
+
+	        try {
+	            connexion = daoFactory.getConnection();
+	            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_USER_BY_SITE, false, site.getId());
+	            resultSet = preparedStatement.executeQuery();
+	            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+	            if (resultSet.next()) {
+	                user = mapUtilisateur(resultSet);
+	            }
+	        } catch (SQLException e) {
+	            throw new DAOException(e);
+	        } finally {
+	            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	        }
+	        return user;
 	}
 	
     @Override
@@ -73,7 +147,7 @@ public class SiteDaoImpl implements ObjetDao {
             resultSet = preparedStatement.executeQuery();
             /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
             if (resultSet.next()) {
-                site = map(resultSet);
+                site = mapSite(resultSet);
             }
         } catch (SQLException e) {
             throw new DAOException(e);
@@ -95,7 +169,7 @@ public class SiteDaoImpl implements ObjetDao {
         try {
             /* Récupération d'une connexion depuis la Factory */
             connexion = daoFactory.getConnection();
-            preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT, true, site.getUrl(), site.getNom(), site.getDescription(), site.getIdCat(), site.getNbClick());
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT, true, site.getUrl(), site.getNom(), site.getDescription(), site.getIdCat(), site.getNbClick(), site.getIdUser());
             int statut = preparedStatement.executeUpdate();
             /* Analyse du statut retourné par la requête d'insertion */
             if ( statut == 0 ) {
@@ -124,7 +198,7 @@ public class SiteDaoImpl implements ObjetDao {
 
 	        try {
 	            connexion = daoFactory.getConnection();
-	            preparedStatement = initialisationRequetePreparee( connexion, SQL_UPDATE, false, site.getId(),site.getUrl(), site.getNom(), site.getDescription(), site.getIdCat(), site.getNbClick(), site.getId());
+	            preparedStatement = initialisationRequetePreparee( connexion, SQL_UPDATE, false, site.getId(),site.getUrl(), site.getNom(), site.getDescription(), site.getIdCat(), site.getNbClick(), site.getIdUser(), site.getId());
 	            int statut = preparedStatement.executeUpdate();
 	            /* Analyse du statut retourné par la requête d'insertion */
 	            if ( statut == 0 ) {

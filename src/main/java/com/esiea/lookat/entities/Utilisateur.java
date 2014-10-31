@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Utilisateur implements Serializable{
 	
+	private Integer id;
 	private String email;
 	private String pseudo;
 	private String password;
@@ -14,8 +15,9 @@ public class Utilisateur implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Utilisateur(String email, String pseudo, String password) {
+	public Utilisateur(Integer id, String email, String pseudo, String password) {
 		super();
+		this.id = id;
 		this.email = email;
 		this.pseudo = pseudo;
 		this.password = password;
@@ -47,7 +49,16 @@ public class Utilisateur implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Utilisateur [email=" + email + ", pseudo=" + pseudo + "]";
+		return "Utilisateur [id=" + id + ", email=" + email + ", pseudo="
+				+ pseudo + ", password=" + password + "]";
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 }

@@ -8,18 +8,18 @@ public class Commentaire implements Serializable{
 	private String etoile;
 	private Integer idSite;
 	private String contenu;
-	private Utilisateur utilisateur;
+	private Integer idUser;
 	
 	public Commentaire() {
 		super();
 	}
-	public Commentaire(Integer id, String etoile, Integer idSite,String contenu, Utilisateur util) {
+	public Commentaire(Integer id, String etoile, Integer idSite,String contenu, Integer idUser) {
 		super();
 		this.id = id;
 		this.etoile = etoile;
 		this.idSite = idSite;
 		this.contenu = contenu;
-		this.utilisateur = util;
+		this.idUser = idUser;
 	}
 	public Integer getId() {
 		return id;
@@ -33,6 +33,9 @@ public class Commentaire implements Serializable{
 	public Integer getIdSite() {
 		return idSite;
 	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public void setIdSite(Integer idSite) {
 		this.idSite = idSite;
 	}
@@ -42,17 +45,17 @@ public class Commentaire implements Serializable{
 	public void setContenu(String contenu) {
 		this.contenu = contenu;
 	}
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+
+	public Integer getIdUser() {
+		return idUser;
 	}
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
 	}
-	
 	@Override
 	public String toString() {
 		return "Commentaire [id=" + id + ", etoile=" + etoile + ", idSite="
-				+ idSite + ", contenu=" + contenu + ", pseudo=" + "]";
+				+ idSite + ", contenu=" + contenu + ", idUser=" + idUser + "]";
 	}
 
 }

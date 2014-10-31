@@ -12,14 +12,14 @@ public class Site implements Serializable{
 	private String nom;
 	private Integer nbClick;
 	private List<Commentaire> listComms;
-	private Utilisateur utilisateur;
+	private Integer idUser;
 	
 	public Site() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Site(Integer id, String url, Integer idCat, String description, String nom, Integer nbClick, Utilisateur util) {
+	public Site(Integer id, String url, Integer idCat, String description, String nom, Integer nbClick, Integer idUser) {
 		super();
 		this.id = id;
 		this.url = url;
@@ -27,7 +27,7 @@ public class Site implements Serializable{
 		this.description = description;
 		this.nom = nom;
 		this.nbClick = nbClick;
-		this.utilisateur = util;
+		this.setIdUser(idUser);
 	}
 
 	public List getListComms() {
@@ -72,20 +72,21 @@ public class Site implements Serializable{
 	public void setNbClick(Integer nbClick) {
 		this.nbClick = nbClick;
 	}
-	
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+
+	public Integer getIdUser() {
+		return idUser;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
 	}
 
 	@Override
 	public String toString() {
 		return "Site [id=" + id + ", url=" + url + ", idCat=" + idCat
 				+ ", description=" + description + ", nom=" + nom
-				+ ", nbClick=" + nbClick + "]";
+				+ ", nbClick=" + nbClick + ", listComms=" + listComms
+				+ ", idUser=" + idUser + "]";
 	}
 	
 }

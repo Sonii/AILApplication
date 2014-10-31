@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.esiea.lookat.entities.Categorie;
+import com.esiea.lookat.entities.Commentaire;
 import com.esiea.lookat.entities.Site;
+import com.esiea.lookat.entities.Utilisateur;
 
 public final class DAOUtilitaire {
 
@@ -27,7 +30,7 @@ public final class DAOUtilitaire {
      * mapping) entre une ligne issue de la table des utilisateurs (un
      * ResultSet) et un bean Utilisateur.
      */
-    static Site map( ResultSet resultSet ) throws SQLException {
+    static Site mapSite( ResultSet resultSet ) throws SQLException {
         Site site = new Site();
         site.setId( resultSet.getInt( "id" ) );
         site.setUrl( resultSet.getString( "url" ) );
@@ -35,7 +38,33 @@ public final class DAOUtilitaire {
         site.setNom( resultSet.getString( "nom" ) );
         site.setIdCat( resultSet.getInt( "idCat" ) );
         site.setNbClick( resultSet.getInt( "nbClick" ) );
+        site.setIdUser( resultSet.getInt( "idUser" ));
         return site;
+    }
+    
+    static Commentaire mapCommentaire( ResultSet resultSet ) throws SQLException {
+        Commentaire com = new Commentaire();
+        com.setId( resultSet.getInt( "id" ) );
+        com.setEtoile( resultSet.getString( "etoile" ) );
+        com.setIdSite( resultSet.getInt( "idSite" ) );
+        com.setContenu( resultSet.getString( "contenu" ) );
+        com.setIdUser( resultSet.getInt( "idUser" ) );
+        return com;
+    }
+    static Categorie mapCategorie( ResultSet resultSet ) throws SQLException {
+    	Categorie cat = new Categorie();
+    	cat.setId( resultSet.getInt( "id" ) );
+    	cat.setNom( resultSet.getString( "nom" ) );
+        return cat;
+    }
+    
+    static Utilisateur mapUtilisateur( ResultSet resultSet ) throws SQLException {
+    	Utilisateur user = new Utilisateur();
+    	user.setId( resultSet.getInt( "id" ) );
+    	user.setPseudo( resultSet.getString( "pseudo" ) );
+    	user.setPassword( resultSet.getString( "password" ) );
+    	user.setEmail( resultSet.getString( "email" ) );
+        return user;
     }
     
     /* Fermeture silencieuse du resultset */

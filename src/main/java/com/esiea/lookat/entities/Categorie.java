@@ -31,10 +31,12 @@ public class Categorie implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Catalogue [id=" + id + ", nom=" + nom + "]";
+		return "Categorie [id=" + id + ", nom=" + nom + "]";
 	}
+	
+
 	
 }
