@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.esiea.lookat.beans.Site;
 import com.esiea.lookat.dao.DAOFactory;
-import com.esiea.lookat.dao.SiteDao;
+import com.esiea.lookat.dao.*;
+import com.esiea.lookat.entities.*;
+import com.esiea.lookat.metier.*;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -33,13 +34,21 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	public static final String CONF_DAO_FACTORY = "daofactory";
-    private SiteDao siteDao = null;
-
+	
+	@Autowired
+	private ObjetMetier siteMetier = new SiteMetierImpl();
+	
+	@Autowired
+	private ObjetMetier commentaireM = new CommentaireMetierImpl();
+    
+	@Autowired
+	private ObjetMetier categorieM = new CategorieMetierImpl();
+	
+	@Autowired
+	private ObjetMetier utilisateurM = new UtilisateurMetierImpl();
     
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		
-		siteDao = DAOFactory.getInstance().getSiteDao();
 		
 		Site site = new Site();
 		site.setUrl("http://localhost.fr");
@@ -48,20 +57,20 @@ public class HomeController {
 		site.setIdCat(1);
 		site.setNbClick(0);
 		
-		siteDao.creer( site );
+		siteMetier.createSite(site);
 		
-		/*Site site2 = siteDao.trouver(6);
+		Site site2 = siteMetier.findSite(9);
 
 		site2.setDescription("MODIFICATION OK2 !");
-		siteDao.modifier(site2);
+		siteMetier.modifySite(site2);
 		
-		siteDao.supprimer(site2);
+		//siteDao.supprimer(site2);
 		
-		site2 = siteDao.trouver(6);
+		site2 = siteMetier.findSite(8);
 		if (site2 != null) {
 			model.addAttribute("monSite", site2.toString());
 		}
-		*/
+		
 		return "home";
 	}
 	

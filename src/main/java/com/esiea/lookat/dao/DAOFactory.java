@@ -75,7 +75,16 @@ public class DAOFactory {
      * Méthodes de récupération de l'implémentation des différents DAO (un seul
      * pour le moment)
      */
-    public SiteDao getSiteDao() {
+    public ObjetDao getSiteDao() {
         return new SiteDaoImpl( this );
+    }
+    public ObjetDao getCommentaireDao() {
+        return new CommentaireDaoImpl(this);
+    }
+    public ObjetDao getCategorieDao() {
+        return new CategorieDaoImpl(this);
+    }
+    public ObjetDao getUtilisateurDao() {
+        return new UtilisateurDaoImpl(this);
     }
 }

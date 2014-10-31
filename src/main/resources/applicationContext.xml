@@ -5,4 +5,36 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+		<!-- Site Dependencies -->
+		<bean id="Sitedao" class="com.esiea.lookat.dao.SiteDaoImpl" init-method="init"></bean>
+		<bean id="SiteMetier" class="com.esiea.lookat.metier.SiteMetierImpl">
+		<property name="dao" ref="Sitedao"></property>
+		</bean>
+		<!-- autowiring byName, bean name should be same as the property name -->
+		<bean name="siteMetier" class="com.esiea.lookat.metier.SiteMetierImpl" autowire="byName" />
+		
+		<!-- Utilisateur Dependencies -->
+		<bean id="utilisateurdao" class="com.esiea.lookat.dao.UtilisateurDaoImpl" init-method="init"></bean>
+		<bean id="utilisateurMetier" class="com.esiea.lookat.metier.UtilisateurMetierImpl">
+		<property name="dao" ref="utilisateurdao"></property>
+		</bean>
+		<!-- autowiring byName, bean name should be same as the property name -->
+		<bean name="utilisateurM" class="com.esiea.lookat.metier.UtilisateurMetierImpl" autowire="byName" />
+		
+		<!-- Commentaire Dependencies -->
+		<bean id="commentairedao" class="com.esiea.lookat.dao.CommentaireDaoImpl" init-method="init"></bean>
+		<bean id="commentaireMetier" class="com.esiea.lookat.metier.CommentaireMetierImpl">
+		<property name="dao" ref="commentairedao"></property>
+		</bean>
+		<!-- autowiring byName, bean name should be same as the property name -->
+		<bean name="commentaireM" class="com.esiea.lookat.metier.CommentaireMetierImpl" autowire="byName" />
+		
+		<!-- Catalogue Dependencies -->
+		<bean id="categoriedao" class="com.esiea.lookat.dao.CategorieDaoImpl" init-method="init"></bean>
+		<bean id="categorieMetier" class="com.esiea.lookat.metier.CategorieMetierImpl">
+		<property name="dao" ref="categoriedao"></property>
+		</bean>
+		<!-- autowiring byName, bean name should be same as the property name -->
+		<bean name="categorieM" class="com.esiea.lookat.metier.CategorieMetierImpl" autowire="byName" />
+	
 </beans>

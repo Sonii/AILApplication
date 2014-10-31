@@ -1,6 +1,9 @@
-package com.esiea.lookat.beans;
+package com.esiea.lookat.entities;
 
-public class Site {
+import java.io.Serializable;
+import java.util.List;
+
+public class Site implements Serializable{
 
 	private Integer id;
 	private String url;
@@ -8,11 +11,34 @@ public class Site {
 	private String description;
 	private String nom;
 	private Integer nbClick;
+	private List<Commentaire> listComms;
+	private Utilisateur utilisateur;
 	
+	public Site() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Site(Integer id, String url, Integer idCat, String description, String nom, Integer nbClick, Utilisateur util) {
+		super();
+		this.id = id;
+		this.url = url;
+		this.idCat = idCat;
+		this.description = description;
+		this.nom = nom;
+		this.nbClick = nbClick;
+		this.utilisateur = util;
+	}
+
+	public List getListComms() {
+		return listComms;
+	}
+	public void setListComms(List listComms) {
+		this.listComms = listComms;
+	}
 	public String getNom() {
 		return nom;
 	}
-	
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
@@ -46,10 +72,20 @@ public class Site {
 	public void setNbClick(Integer nbClick) {
 		this.nbClick = nbClick;
 	}
+	
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
 	@Override
 	public String toString() {
 		return "Site [id=" + id + ", url=" + url + ", idCat=" + idCat
 				+ ", description=" + description + ", nom=" + nom
 				+ ", nbClick=" + nbClick + "]";
 	}
+	
 }

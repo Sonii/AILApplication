@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.esiea.lookat.beans.Site;
+import com.esiea.lookat.entities.Site;
 
 public final class DAOUtilitaire {
 

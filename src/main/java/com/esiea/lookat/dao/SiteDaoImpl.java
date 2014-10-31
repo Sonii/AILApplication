@@ -1,14 +1,22 @@
+
 package com.esiea.lookat.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-import com.esiea.lookat.beans.Site;
+import org.apache.log4j.Logger;
+
+import com.esiea.lookat.entities.Categorie;
+import com.esiea.lookat.entities.Commentaire;
+import com.esiea.lookat.entities.Site;
+import com.esiea.lookat.entities.Utilisateur;
+
 import static com.esiea.lookat.dao.DAOUtilitaire.*;
 
-public class SiteDaoImpl implements SiteDao {
+public class SiteDaoImpl implements ObjetDao {
 	
 
     private static final String SQL_SELECT_PAR_ID = "SELECT id, url, nom, description, idCat, nbClick FROM Site WHERE id = ?";
@@ -17,13 +25,43 @@ public class SiteDaoImpl implements SiteDao {
     private static final String SQL_DELETE = "DELETE FROM Site WHERE id = ?";
 
     private DAOFactory daoFactory;
+    Logger logger = Logger.getLogger(SiteDaoImpl.class);
 
-    SiteDaoImpl( DAOFactory daoFactory ) {
+    public SiteDaoImpl() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	SiteDaoImpl( DAOFactory daoFactory ) {
         this.daoFactory = daoFactory;
     }
 	
+	@Override // liste de commentaires pour un site
+	public List<Commentaire> getlistComs(Site site) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override // Categorie de site
+	public Categorie getSiteCategorie(Site site) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override // la liste de sites
+	public List<Site> getAllSites() throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override // utilisateur du site
+	public Utilisateur getSiteUser(Site site) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
     @Override
-    public Site trouver( Integer id ) throws DAOException {
+    public Site findSite(Integer id) throws DAOException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -31,16 +69,16 @@ public class SiteDaoImpl implements SiteDao {
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initialisationRequetePreparee( connexion, SQL_SELECT_PAR_ID, false, id );
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ID, false, id);
             resultSet = preparedStatement.executeQuery();
             /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
-            if ( resultSet.next() ) {
-                site = map( resultSet );
+            if (resultSet.next()) {
+                site = map(resultSet);
             }
-        } catch ( SQLException e ) {
-            throw new DAOException( e );
+        } catch (SQLException e) {
+            throw new DAOException(e);
         } finally {
-            fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
         }
         return site;
     }
@@ -49,7 +87,7 @@ public class SiteDaoImpl implements SiteDao {
 
     /* Implémentation de la méthode définie dans l'interface UtilisateurDao */
     @Override
-    public void creer( Site site ) throws DAOException {
+    public void createSite( Site site ) throws DAOException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet valeursAutoGenerees = null;
@@ -79,7 +117,7 @@ public class SiteDaoImpl implements SiteDao {
     }
 
 	@Override
-	public void modifier(Site site) throws DAOException {
+	public void modifySite(Site site) throws DAOException {
 		 	Connection connexion = null;
 	        PreparedStatement preparedStatement = null;
 	        ResultSet resultSet = null;
@@ -100,7 +138,7 @@ public class SiteDaoImpl implements SiteDao {
 	}
 
 	@Override
-	public void supprimer(Site site) throws DAOException {
+	public void deleteSite(Site site) throws DAOException {
 		Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -119,7 +157,106 @@ public class SiteDaoImpl implements SiteDao {
             fermeturesSilencieuses( resultSet, preparedStatement, connexion );
         }
 	}
-    
-    
+	
+	public void init() {
+		logger.info("Site Dao Dependency Done");
+	}
 
+	@Override
+	public void createCom(Commentaire commentaire) throws DAOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	/* A ne pas toucher pour cette classe */
+	@Override
+	public Commentaire findCom(Integer id) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void modifyCom(Commentaire commentaire) throws DAOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteCom(Commentaire commentaire) throws DAOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createUser(Utilisateur utilisateur) throws DAOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Utilisateur findUser(String email) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void modifyUser(Utilisateur utilisateur) throws DAOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteUser(Utilisateur utilisateur) throws DAOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createCategorie(Categorie catalogue) throws DAOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Categorie findCategorie(Integer id) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void modifyCategorie(Categorie catalogue) throws DAOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteCategorie(Categorie catalogue) throws DAOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Site getSiteCom(Commentaire commentaire) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Utilisateur getComUser(Commentaire commentaire) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Categorie> getAllCategories() throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Site> getCategorieSites() throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
