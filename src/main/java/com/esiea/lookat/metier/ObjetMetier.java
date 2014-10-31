@@ -30,17 +30,14 @@ public interface ObjetMetier {
     
 	/* ----------- CategorieMetierImpl Class Methods -----------*/
     
-    public void createCategorie(Categorie catalogue);
     public Categorie findCategorie(Integer id);
-    public void modifyCategorie(Categorie catalogue);
-    public void deleteCategorie(Categorie catalogue);
-    public List<Categorie> getAllCategories();// Récuperer la liste de toutes les categories
-    public List<Site> getCategorieSites(); // Récuperer la liste de sites appartenant à une categorie
+    public List<Categorie> getAllCategories();// Rï¿½cuperer la liste de toutes les categories
+    public List<Site> getCategorieSites(Categorie catalogue); // Rï¿½cuperer la liste de sites appartenant ï¿½ une categorie
     
 	/* ----------- UtilisateurMetierImpl Class Methods -----------*/
     
     public void createUser(Utilisateur utilisateur);
-    public Utilisateur findUser(String email);
+    public Utilisateur findUser(Integer id);
     public void modifyUser(Utilisateur utilisateur);
     public void deleteUser(Utilisateur utilisateur);
 

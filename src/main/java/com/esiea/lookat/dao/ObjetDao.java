@@ -37,6 +37,6 @@ public interface ObjetDao {
     public void createUser(Utilisateur utilisateur) throws DAOException;
     public Utilisateur findUser(Integer id) throws DAOException;
     public void modifyUser(Utilisateur utilisateur) throws DAOException;
-    public void deleteUser(Utilisateur utilisateur) throws DAOException;
+    public void deleteUser(Utilisateur utilisateur) throws DAOException; //Supprimer d'abbord tout ses commentaire et ses site sinon erreur clé externe sql
     
 }

@@ -23,38 +23,17 @@ public class CategorieMetierImpl implements ObjetMetier{
 	
 	@Override
 	public List<Categorie> getAllCategories() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getAllCategories();
 	}
 	
 	@Override
-	public List<Site> getCategorieSites() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void createCategorie(Categorie catalogue) {
-		// TODO Auto-generated method stub
-		
+	public List<Site> getCategorieSites(Categorie catalogue) {
+		return dao.getCategorieSites(catalogue);
 	}
 
 	@Override
 	public Categorie findCategorie(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void modifyCategorie(Categorie catalogue) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteCategorie(Categorie catalogue) {
-		// TODO Auto-generated method stub
-		
+		return dao.findCategorie(id);
 	}
 	
 	@Override
@@ -130,12 +109,6 @@ public class CategorieMetierImpl implements ObjetMetier{
 	}
 
 	@Override
-	public Utilisateur findUser(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void modifyUser(Utilisateur utilisateur) {
 		// TODO Auto-generated method stub
 		
@@ -161,6 +134,12 @@ public class CategorieMetierImpl implements ObjetMetier{
 
 	@Override
 	public Utilisateur getComUser(Commentaire commentaire) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Utilisateur findUser(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -24,25 +24,22 @@ public class SiteMetierImpl implements ObjetMetier{
 	@Override
 	public List<Site> getAllSites()
 	{
-		return null;
+		return dao.getAllSites();
 	}
 	
 	@Override
 	public Utilisateur getSiteUser(Site site) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getSiteUser(site);
 	}
 	
 	@Override
 	public List<Commentaire> getlistComs(Site site) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getlistComs(site);
 	}
 
 	@Override
 	public Categorie getSiteCategorie(Site site) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getSiteCategorie(site);
 	}
 
 	@Override
@@ -96,12 +93,6 @@ public class SiteMetierImpl implements ObjetMetier{
 	}
 
 	@Override
-	public Utilisateur findUser(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void modifyUser(Utilisateur utilisateur) {
 		// TODO Auto-generated method stub
 		
@@ -120,27 +111,9 @@ public class SiteMetierImpl implements ObjetMetier{
 	}
 
 	@Override
-	public void createCategorie(Categorie catalogue) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Categorie findCategorie(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void modifyCategorie(Categorie catalogue) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteCategorie(Categorie catalogue) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -150,13 +123,19 @@ public class SiteMetierImpl implements ObjetMetier{
 	}
 
 	@Override
-	public List<Site> getCategorieSites() {
+	public Utilisateur getComUser(Commentaire commentaire) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Utilisateur getComUser(Commentaire commentaire) {
+	public List<Site> getCategorieSites(Categorie catalogue) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Utilisateur findUser(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

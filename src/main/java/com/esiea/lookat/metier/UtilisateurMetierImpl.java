@@ -23,25 +23,24 @@ public class UtilisateurMetierImpl implements ObjetMetier{
 
 	@Override
 	public void createUser(Utilisateur utilisateur) {
-		// TODO Auto-generated method stub
+		dao.createUser(utilisateur);
 		
 	}
 
 	@Override
-	public Utilisateur findUser(String email) {
-		// TODO Auto-generated method stub
-		return null;
+	public Utilisateur findUser(Integer id) {
+		return dao.findUser(id);
 	}
 
 	@Override
 	public void modifyUser(Utilisateur utilisateur) {
-		// TODO Auto-generated method stub
+		dao.modifyUser(utilisateur);
 		
 	}
 
 	@Override
 	public void deleteUser(Utilisateur utilisateur) {
-		// TODO Auto-generated method stub
+		dao.deleteUser(utilisateur);
 		
 	}
 
@@ -112,27 +111,9 @@ public class UtilisateurMetierImpl implements ObjetMetier{
 	}
 
 	@Override
-	public void createCategorie(Categorie catalogue) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Categorie findCategorie(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void modifyCategorie(Categorie catalogue) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteCategorie(Categorie catalogue) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -147,11 +128,6 @@ public class UtilisateurMetierImpl implements ObjetMetier{
 		return null;
 	}
 
-	@Override
-	public List<Site> getCategorieSites() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Utilisateur getSiteUser(Site site) {
@@ -164,5 +140,12 @@ public class UtilisateurMetierImpl implements ObjetMetier{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Site> getCategorieSites(Categorie catalogue) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
