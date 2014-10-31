@@ -100,27 +100,9 @@ public class UtilisateurDaoImpl implements ObjetDao{
 	}
 
 	@Override
-	public void createCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Categorie findCategorie(Integer id) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void modifyCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -166,9 +148,11 @@ public class UtilisateurDaoImpl implements ObjetDao{
 	}
 
 	@Override
-	public List<Site> getCategorieSites() throws DAOException {
+	public List<Site> getCategorieSites(Categorie catalogue)
+			throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

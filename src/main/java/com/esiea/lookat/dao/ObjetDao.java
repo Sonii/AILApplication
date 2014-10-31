@@ -23,17 +23,14 @@ public interface ObjetDao {
     public Commentaire findCom(Integer id) throws DAOException;
     public void modifyCom(Commentaire commentaire) throws DAOException;
     public void deleteCom(Commentaire commentaire) throws DAOException;
-    public Site getSiteCom(Commentaire commentaire) throws DAOException; // Récuperer le site du commentaire
-    public Utilisateur getComUser(Commentaire commentaire) throws DAOException; // Récuperer l'utilisateur du commentaire
+    public Site getSiteCom(Commentaire commentaire) throws DAOException; // Rï¿½cuperer le site du commentaire
+    public Utilisateur getComUser(Commentaire commentaire) throws DAOException; // Rï¿½cuperer l'utilisateur du commentaire
     
     /* ----------- Methods For Categorie Class ----------- */
     
-    public void createCategorie(Categorie catalogue) throws DAOException;
     public Categorie findCategorie(Integer id) throws DAOException;
-    public void modifyCategorie(Categorie catalogue) throws DAOException;
-    public void deleteCategorie(Categorie catalogue) throws DAOException;
-    public List<Categorie> getAllCategories() throws DAOException; // Récuperer la liste de sites appartenant à une categorie
-    public List<Site> getCategorieSites() throws DAOException; // Récuperer la liste de toutes les categories
+    public List<Categorie> getAllCategories() throws DAOException; // Rï¿½cuperer la liste de sites appartenant ï¿½ une categorie
+    public List<Site> getCategorieSites(Categorie catalogue) throws DAOException; // Rï¿½cuperer la liste de toutes les categories
     
     /* ----------- Methods For Utilisateur Class ----------- */
     

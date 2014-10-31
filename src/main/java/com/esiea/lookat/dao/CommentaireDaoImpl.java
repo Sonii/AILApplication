@@ -27,13 +27,13 @@ public class CommentaireDaoImpl implements ObjetDao{
         this.daoFactory = daoFactory;
     }
 	
-	@Override // Récuperer le site du commentaire
+	@Override // Rï¿½cuperer le site du commentaire
 	public Site getSiteCom(Commentaire commentaire) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override // Récuperer l'utilisateur du commentaire
+	@Override // Rï¿½cuperer l'utilisateur du commentaire
 	public Utilisateur getComUser(Commentaire commentaire) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
@@ -112,29 +112,11 @@ public class CommentaireDaoImpl implements ObjetDao{
 	}
 
 	@Override
-	public void createCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Categorie findCategorie(Integer id) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public void modifyCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public List<Commentaire> getlistComs(Site site) throws DAOException {
 		// TODO Auto-generated method stub
@@ -165,8 +147,10 @@ public class CommentaireDaoImpl implements ObjetDao{
 		return null;
 	}
 
+
 	@Override
-	public List<Site> getCategorieSites() throws DAOException {
+	public List<Site> getCategorieSites(Categorie catalogue)
+			throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}

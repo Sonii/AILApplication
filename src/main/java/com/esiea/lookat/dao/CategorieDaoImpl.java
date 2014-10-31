@@ -1,5 +1,12 @@
 package com.esiea.lookat.dao;
 
+import static com.esiea.lookat.dao.DAOUtilitaire.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,6 +17,10 @@ import com.esiea.lookat.entities.Site;
 import com.esiea.lookat.entities.Utilisateur;
 
 public class CategorieDaoImpl implements ObjetDao {
+
+	private static final String SQL_SELECT_PAR_ID = "SELECT * FROM categories WHERE id = ?";
+    private static final String SQL_SELECT_ALLSITE_BY_CAT = "SELECT site.id, site.url, site.nom, site.description, site.idCat, site.nbClick, site.idUser FROM categories, site WHERE site.idCat = categories.id  AND categories.id = ?";
+    private static final String SQL_SELECT_ALLCAT = "SELECT * FROM categories";
 
 	Logger logger = Logger.getLogger(CategorieDaoImpl.class);
 	private DAOFactory daoFactory;
@@ -27,40 +38,74 @@ public class CategorieDaoImpl implements ObjetDao {
         this.daoFactory = daoFactory;
     }
 
-	@Override // R�cuperer la liste de toutes les categories
+	@Override // R�cuperer la liste de toutes les categories
 	public List<Categorie> getAllCategories() throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		 Connection connexion = null;
+	        PreparedStatement preparedStatement = null;
+	        ResultSet resultSet = null;
+	        ArrayList <Categorie> cats = new ArrayList <Categorie>();
+
+	        try {
+	            connexion = daoFactory.getConnection();
+	            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_ALLCAT, false);
+	            resultSet = preparedStatement.executeQuery();
+	            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+	            while (resultSet.next()) {
+	                cats.add(mapCategorie(resultSet));
+	            }
+	        } catch (SQLException e) {
+	            throw new DAOException(e);
+	        } finally {
+	            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	        }
+	        return cats;
 	}
 
-	@Override // R�cuperer la liste de sites appartenant � une categorie
-	public List<Site> getCategorieSites() throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+	@Override // R�cuperer la liste de sites appartenant � une categorie
+	public List<Site> getCategorieSites(Categorie cat) throws DAOException {
+		 	Connection connexion = null;
+	        PreparedStatement preparedStatement = null;
+	        ResultSet resultSet = null;
+	        ArrayList <Site> sites = new ArrayList<Site>();
+
+	        try {
+	            connexion = daoFactory.getConnection();
+	            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_ALLSITE_BY_CAT, false, cat.getId());
+	            resultSet = preparedStatement.executeQuery();
+	            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+	            while (resultSet.next()) {
+	                sites.add( mapSite(resultSet));
+	            }
+	        } catch (SQLException e) {
+	            throw new DAOException(e);
+	        } finally {
+	            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	        }
+	        return sites;
 	}
 	
-	@Override
-	public void createCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public Categorie findCategorie(Integer id) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		 Connection connexion = null;
+	        PreparedStatement preparedStatement = null;
+	        ResultSet resultSet = null;
+	        Categorie cat = null;
 
-	@Override
-	public void modifyCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
+	        try {
+	            connexion = daoFactory.getConnection();
+	            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ID, false, id);
+	            resultSet = preparedStatement.executeQuery();
+	            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+	            if (resultSet.next()) {
+	                cat = mapCategorie(resultSet);
+	            }
+	        } catch (SQLException e) {
+	            throw new DAOException(e);
+	        } finally {
+	            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	        }
+	        return cat;
 	}
 
 	@Override

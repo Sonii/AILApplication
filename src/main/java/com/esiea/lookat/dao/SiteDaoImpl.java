@@ -20,13 +20,13 @@ import static com.esiea.lookat.dao.DAOUtilitaire.*;
 public class SiteDaoImpl implements ObjetDao {
 	
 
-    private static final String SQL_SELECT_PAR_ID = "SELECT id, url, nom, description, idCat, nbClick, idUser FROM Site WHERE id = ?";
-    private static final String SQL_INSERT = "INSERT INTO Site (url, nom, description, idCat, nbClick, idUser) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE Site SET id = ? , url = ?, nom = ?, description = ?, idCat = ?, nbClick = ?, idUser = ? WHERE id = ?";
-    private static final String SQL_DELETE = "DELETE FROM Site WHERE id = ?";
+    private static final String SQL_SELECT_PAR_ID = "SELECT id, url, nom, description, idCat, nbClick, idUser FROM site WHERE id = ?";
+    private static final String SQL_INSERT = "INSERT INTO site (url, nom, description, idCat, nbClick, idUser) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE site SET id = ? , url = ?, nom = ?, description = ?, idCat = ?, nbClick = ?, idUser = ? WHERE id = ?";
+    private static final String SQL_DELETE = "DELETE FROM site WHERE id = ?";
     private static final String SQL_SELECT_ALLCOM_BY_SITE = "SELECT commentaires.id, commentaires.etoile, commentaires.idSite, commentaires.contenu, commentaires.idUser FROM commentaires, site WHERE site.id = commentaires.idSite AND site.id = ?";
     private static final String SQL_SELECT_CAT_BY_SITE = "SELECT categorie.id, categorie.nom FROM categories, site WHERE site.idCat = categories.id AND site.id = ?";
-    private static final String SQL_SELECT_ALLSITE = "SELECT * FROM Site";
+    private static final String SQL_SELECT_ALLSITE = "SELECT * FROM site";
     private static final String SQL_SELECT_USER_BY_SITE = "SELECT utilisateurs.id, utilisateurs.pseudo, utilisateurs.password, utilisateurs.email FROM utilisateurs, site WHERE site.idUser = utilisateurs.id AND site.id = ?";
     
     private DAOFactory daoFactory;
@@ -287,27 +287,9 @@ public class SiteDaoImpl implements ObjetDao {
 	}
 
 	@Override
-	public void createCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Categorie findCategorie(Integer id) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void modifyCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteCategorie(Categorie catalogue) throws DAOException {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -328,8 +310,10 @@ public class SiteDaoImpl implements ObjetDao {
 		return null;
 	}
 
+
 	@Override
-	public List<Site> getCategorieSites() throws DAOException {
+	public List<Site> getCategorieSites(Categorie catalogue)
+			throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
