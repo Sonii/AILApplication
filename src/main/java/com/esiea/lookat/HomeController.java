@@ -53,7 +53,7 @@ public class HomeController {
 		
 		////BASIC FUNCTION
 		//Creation
-		Utilisateur user1 =  new Utilisateur(1, "thomasremond@yahoo.fr", "Sonii", "123456");
+		/*Utilisateur user1 =  new Utilisateur(1, "thomasremond@yahoo.fr", "Sonii", "123456");
 		utilisateurM.createUser(user1);
 		model.addAttribute("user1", user1.toString());
 		
@@ -126,7 +126,7 @@ public class HomeController {
 		model.addAttribute("sitescat", sitescat);
 
 
-		utilisateurM.deleteUser(user1);
+		utilisateurM.deleteUser(user1);*/
 		
 		return "home";
 	}
