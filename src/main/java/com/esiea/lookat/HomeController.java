@@ -138,6 +138,12 @@ public class HomeController {
 
 		return "home";
 	}
+	
+	@RequestMapping(value = "/publishSite")
+	public String home2(Model model) {
+
+		return "home";
+	}
 		////BASIC FUNCTION
 		//Creation
 		/*Utilisateur user1 =  new Utilisateur(1, "thomasremond@yahoo.fr", "Sonii", "123456");
