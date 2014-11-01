@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib  uri="http://www.springframework.org/tags/form" prefix="f" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -11,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/Bootstrap-theme.css">
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.min.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.min.js"></script>
@@ -35,30 +37,14 @@
             <li><a href="#about">About</a></li>
             <li><a href="publishSite">Publish WebSite</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="signin">Sign In</a></li>
+            <li class="active"><a href="signin">Sign In</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 
 	<br><br><br><br><br>
-	<div class="row row-offcanvas row-offcanvas-right">
-	<c:forEach items="${liste}" var="commentaire" varStatus="loop">
-        <div class="col-xs-12 col-sm-9">
-          <div class="row">
-            <div class="col-xs-6 col-lg-4">
-              <p>${commentaire.contenu}</p>
-              <br><br>
-              <c:forEach var="i" begin="1" end="${commentaire.etoile}">
-   				<span class="glyphicon glyphicon-star"></span>
-			  </c:forEach>
-			  <c:forEach var="j" begin="${commentaire.etoile}" end="4">
-	   			 <span class="glyphicon glyphicon-star-empty"></span>
-			  </c:forEach>
-            </div><!--/.col-xs-6.col-lg-4-->
-            </div>
-        </div><!--/.col-xs-12.col-sm-9-->
-	</c:forEach>
-	</div>
+	<a href="signout">Sign out</a>
+	
 </body>
 </html>

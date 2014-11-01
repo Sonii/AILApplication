@@ -136,14 +136,21 @@ public class HomeController {
 	
 	/* ----------------- Site Comms ------------------ */
 	@RequestMapping(value = "/avis")
-	public String avis(Model model, Integer id) {
+	public String avis(Model model, Integer idC) {
 		Site site = new Site();
-		site = siteMetier.findSite(id);
-		List<Commentaire> comms = new ArrayList<Commentaire>();
-		comms = siteMetier.getlistComs(site);
-		model.addAttribute("commentaire", new Commentaire());
-		model.addAttribute("liste", comms);
-		return "avisSite";
+		site = siteMetier.findSite(idC);
+		if(site == null)
+		{
+			return "home";
+		}
+		else
+		{
+			List<Commentaire> comms = new ArrayList<Commentaire>();
+			comms = siteMetier.getlistComs(site);
+			model.addAttribute("commentaire", new Commentaire());
+			model.addAttribute("liste", comms);
+			return "avisSite";
+		}
 	}
 	/* ----------------------------------------------- */
 	
@@ -153,8 +160,16 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/signin")
-	public String signin(Model model) {
-		return "signin";
+	public String signin(Model model, HttpSession session) {
+		String email = (String) session.getAttribute("email");
+		if(email != null)
+		{
+			return "signin";
+		}
+		else
+		{
+			return "signout";
+		}
 	}
 	
 	@RequestMapping(value = "/login") // il reste � manipuler les cas ou les pass sont pas correctes
@@ -197,11 +212,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/savesite")
-	public String saveSite(Model model, Site site) {
+	public String saveSite(Model model, Site site, HttpSession session) {
 		Boolean success;
-		if((site.getUrl() != null) && (site.getDescription() != null) && (site.getNom() != null))
+		String email = (String) session.getAttribute("email");
+		if((site.getUrl() != null) && (site.getDescription() != null) && (site.getNom() != null) && (site.getIdCat() != 0) && (email != null))
 		{
+			Utilisateur util = utilisateurM.findUserByEmail(email);
 			success = true;
+
+			site.setIdUser(util.getId());
 			model.addAttribute("bool", success); //l� success
 			siteMetier.createSite(site);
 			return "publishSite";
@@ -255,6 +274,12 @@ public class HomeController {
 			return "signin";
 		}
 		return "addcoms";
+	}
+	
+	@RequestMapping(value = "/signout")
+	public String signout(Model model, HttpSession session) {
+		session.invalidate();
+		return "signin";
 	}
 
 		////BASIC FUNCTION

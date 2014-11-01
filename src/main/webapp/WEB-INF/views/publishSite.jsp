@@ -59,6 +59,21 @@
 		  <f:input type="text" class="form-control" placeholder="" path="nom"/>
 		</div>
 		<br>
+		<div class="input-group">
+		  <span class="input-group-addon">Categorie</span>
+		  <f:select name="selValue" class="selectpicker" path="idCat">
+			   <option value="0"> ------ </option>
+			   <option value="1">Mode</option>
+			   <option value="2">Sport</option>
+			   <option value="3">I-Tech</option>
+			   <option value="4">Monde</option>
+			   <option value="5">Sales</option>
+			   <option value="6">Cinéma</option>
+			   <option value="7">People</option>
+			   <option value="8">Jeux</option>
+		  </f:select>
+		</div>
+		<br>
 		<br><br><br>
 		<f:button type="submit" class="btn btn-primary btn-sm" id="btn">Save</f:button>
 	</f:form>

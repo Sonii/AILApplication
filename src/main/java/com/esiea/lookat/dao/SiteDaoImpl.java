@@ -46,8 +46,7 @@ public class SiteDaoImpl implements ObjetDao {
 		 Connection connexion = null;
 	        PreparedStatement preparedStatement = null;
 	        ResultSet resultSet = null;
-	        ArrayList <Commentaire> coms = new ArrayList <Commentaire>();
-
+	        List<Commentaire> coms = new ArrayList<Commentaire>();
 	        try {
 	            connexion = daoFactory.getConnection();
 	            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_ALLCOM_BY_SITE, false, site.getId());
