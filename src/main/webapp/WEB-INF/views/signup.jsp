@@ -41,22 +41,29 @@
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
-
 	<br><br><br><br><br>
-		<form role="form" method="post" action="login">
-			<div class="form-group">
-		    	<label for="exampleInputEmail1">Email address</label>
-		  	  	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email">
-		  	</div>
-		  	<div class="form-group">
-		    	<label for="exampleInputPassword1">Password</label>
-		    	<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="pass">
-		 	</div>
-		 	<br><br><br><br>
-		  	<button type="submit" class="btn btn-primary btn-sm" id="btn">Connect</button>
-		  	<br><br><br><br>
-		  	 <a href="signup">Sign Up</a>
-		</form>
-	
-</body>
-</html>
+		<f:form modelAttribute="user" method="post" action="signup"> 
+			<br><br><br><br><br><br>
+		<div class="input-group">
+		  <span class="input-group-addon">Pseudo</span>
+		  <f:input path="pseudo" type="text" class="form-control" placeholder=""/>
+		</div>
+		<br>
+		<div class="input-group">
+		  <span class="input-group-addon">Mail Address</span>
+		  <f:input type="text" class="form-control" placeholder="email@example.com" path="email"/>
+		</div>
+		<br>
+		<div class="input-group">
+		  <span class="input-group-addon">Password</span>
+		  <f:input type="password" class="form-control" placeholder="" path="password"/>
+		</div>
+		<br>
+		<div class="input-group">
+		  <span class="input-group-addon">Password</span>
+		  <input type="password" class="form-control" placeholder="Confirm Password" name="confirmP"/>
+		</div>
+		<br>
+		<br><br><br>
+		<f:button type="submit" class="btn btn-primary btn-sm" id="btn">Save</f:button>
+	</f:form>

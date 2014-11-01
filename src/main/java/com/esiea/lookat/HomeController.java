@@ -180,6 +180,22 @@ public class HomeController {
 		}
 	}
 	
+	@RequestMapping(value = "/signup")
+	public String signup(Model model) {
+		model.addAttribute("user", new Utilisateur());
+		return "signup";
+	}
+	
+	@RequestMapping(value = "/saveuser")
+	public String saveuser(Model model, Utilisateur user, @RequestParam("confirmP")String confirmP) {
+		model.addAttribute("user", new Utilisateur());
+		if((user.getPassword().isEmpty()) || (user.getPassword().length() < 6))
+			return "signup";
+		if((confirmP.isEmpty()) || (!confirmP.equals(user.getPassword())))
+			return "signup";
+		return null;
+	}
+	
 
 		////BASIC FUNCTION
 		//Creation
