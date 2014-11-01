@@ -159,36 +159,57 @@ public class HomeController {
 	
 	@RequestMapping(value = "/login") // il reste à manipuler les cas ou les pass sont pas correctes
 	public String login(@RequestParam("email")String email,  @RequestParam("pass")String pass, Model model, HttpSession session) {
-		Boolean correct = true;
-		// function check that password is correct
-		if(correct == true)
+		Boolean wrong = false;
+		if(email.isEmpty())
+		{
+			return "signin";
+		}
+		else if(pass.isEmpty())
+		{
+			return "signin";
+		}
+		else if((utilisateurM.findUserByEmail(email) != null) && (utilisateurM.findUserByEmail(email).getPassword().equals(pass)))
 		{
 			session.setAttribute("email", email);
 			session.setAttribute("password", pass);
+			return "publishSite";
 		}
-		return "home"; // Il est obligatoire d'ajouter un petit label disant que pour pouvoir publier un site, ajouter un commentaire il faut se loguer
-		// Quand on clique sur publishSite alors qu'on est pas connecté il nous jette direct dans signin
-		// Il faut ajouter un bouton signin
+		else
+		{
+			wrong = true;
+			model.addAttribute("wrong", wrong); // erreur : pass ou email incorrectes
+			return "signin";
+		}
 	}
 	
 	@RequestMapping(value = "/publishSite") // il reste à manipuler les cas ou les pass sont pas correctes
 	public String publishSite(Model model, Site site, HttpSession session) {
 		String email = (String) session.getAttribute("email");
-	/*	if(email == null)
+		if(email == null)
 		{
 			return "signin";
 		}
 		else
-		{*/
+		{
 			model.addAttribute("site", new Site());
 			return "publishSite";
-		//}
+		}
 	}
 	
 	@RequestMapping(value = "/savesite")
 	public String saveSite(Model model, Site site) {
-		siteMetier.createSite(site);
-		return "publishSite";
+		Boolean success;
+		if((site.getUrl() != null) && (site.getDescription() != null) && (site.getNom() != null))
+		{
+			success = true;
+			model.addAttribute("bool", success); //là success
+			siteMetier.createSite(site);
+			return "publishSite";
+		}
+		else
+		{
+			return "publishSite";
+		}
 	}
 	
 	
@@ -201,19 +222,40 @@ public class HomeController {
 	@RequestMapping(value = "/saveuser")
 	public String saveuser(Model model, Utilisateur user, @RequestParam("confirmP")String confirmP) {
 		model.addAttribute("user", new Utilisateur());
-		Boolean present;
-		if(utilisateurM.findUserByEmail(user.getEmail()) != null)
+		Boolean present = false;
+		if(utilisateurM.findUserByEmail(user.getEmail()) == null)
 		{
-			present = false;
+			present = true;
+			model.addAttribute("present", present); //là erreur contact existe deja
+			return "signup";
+		}
+		else if ((user.getEmail() == null) || (user.getPassword() == null) || (user.getPassword().length() < 6) || !(user.getPassword().equals(confirmP)))
+		{
 			return "signup";
 		}
 		else
 		{
-			present = true;
-			return "signup";
+			present = false;
+			model.addAttribute("presdent", present); // Success : compte crée
+			return "signin";
 		}
 	}
 	
+	@RequestMapping(value = "/addcoms")
+	public String addcoms(Model model) {
+		model.addAttribute("com", new Commentaire());
+		return "addcoms";
+	}
+	
+	@RequestMapping(value = "/savecom")
+	public String savecom(Model model, Commentaire com, HttpSession session) {
+		model.addAttribute("com", new Commentaire());
+		if(session.getAttribute("email") == null)
+		{
+			return "signin";
+		}
+		return "addcoms";
+	}
 
 		////BASIC FUNCTION
 		//Creation
