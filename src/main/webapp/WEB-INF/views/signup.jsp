@@ -13,10 +13,13 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/Bootstrap-theme.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/docs.min.js"></script> 
+		<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Personalisation/monjs.js"></script>
+	
 </head>
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
@@ -36,34 +39,40 @@
             <li><a href="#about">About</a></li>
             <li><a href="publishSite">Publish WebSite</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li class="active"><a href="signin">Sign In</a></li>
+            <li><a href="signin">Sign In</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 	<br><br><br><br><br>
-		<f:form modelAttribute="user" method="post" action="signup"> 
-			<br><br><br><br><br><br>
-		<div class="input-group">
-		  <span class="input-group-addon">Pseudo</span>
-		  <f:input path="pseudo" type="text" class="form-control" placeholder=""/>
+	<div id="logDiv" class="jumbotron">
+	<h2>Sign Up</h2>
+		<br><br>
+		<c:if test="${present == true}">
+		   <p class="monErreur">Email déjà utilisée. Re-essayer :<p>
+		</c:if>
+		<f:form name="signup" modelAttribute="user" method="post" action="signup" onsubmit="return validateSignup()"> 
+		
+		<div id="pseudoSignupForm" class="input-group input-group-lg form-group">
+		  <span class="input-group-addon"></span>
+		  <f:input  name="pseudo" path="pseudo" type="text" class="form-control" placeholder="Pseudo"/>
 		</div>
 		<br>
-		<div class="input-group">
-		  <span class="input-group-addon">Mail Address</span>
-		  <f:input type="text" class="form-control" placeholder="email@example.com" path="email"/>
+		<div id="emailSignupForm" class="input-group input-group-lg form-group">
+		  <span class="input-group-addon"></span>
+		  <f:input name="email" type="email" class="form-control" placeholder="email@example.com" path="email"/>
 		</div>
 		<br>
-		<div class="input-group">
-		  <span class="input-group-addon">Password</span>
-		  <f:input type="password" class="form-control" placeholder="" path="password"/>
+		<div  id="passSignupForm" class="input-group input-group-lg form-group">
+		  <span class="input-group-addon"></span>
+		  <f:input name="pass" type="password" class="form-control" placeholder="Password" path="password"/>
 		</div>
 		<br>
-		<div class="input-group">
-		  <span class="input-group-addon">Password</span>
-		  <input type="password" class="form-control" placeholder="Confirm Password" name="confirmP"/>
+		<div  id="confirmSignupForm" class="input-group input-group-lg form-group">
+		  <span class="input-group-addon"></span>
+		  <input name="confirm" type="password" class="form-control" placeholder="Confirm Password" name="confirmP" onkeyup="checkPass()"/>
 		</div>
 		<br>
-		<br><br><br>
-		<f:button type="submit" class="btn btn-primary btn-sm" id="btn">Save</f:button>
+		<f:button type="submit" class="btn btn-primary btn-sm btnLogIn" id="btn">Create my Account</f:button>
 	</f:form>
+	</div>

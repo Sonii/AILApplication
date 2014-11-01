@@ -36,3 +36,7 @@
 .newAccountLink {
 	text-align : center;
 }
+
+.monErreur{
+	color : red;
+}

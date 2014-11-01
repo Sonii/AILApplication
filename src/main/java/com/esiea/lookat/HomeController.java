@@ -51,7 +51,7 @@ public class HomeController {
 	private ObjetMetier utilisateurM = new UtilisateurMetierImpl();
     
 	
-	/* ---------- Affichae des sites à partie de la catégorie ---------- */
+	/* ---------- Affichae des sites ï¿½ partie de la catï¿½gorie ---------- */
 	@RequestMapping(value = "/mode")
 	public String getmodeCatSites(Model model) {
 		Categorie cat = new Categorie();
@@ -157,7 +157,7 @@ public class HomeController {
 		return "signin";
 	}
 	
-	@RequestMapping(value = "/login") // il reste à manipuler les cas ou les pass sont pas correctes
+	@RequestMapping(value = "/login") // il reste ï¿½ manipuler les cas ou les pass sont pas correctes
 	public String login(@RequestParam("email")String email,  @RequestParam("pass")String pass, Model model, HttpSession session) {
 		Boolean wrong = false;
 		if(email.isEmpty())
@@ -182,7 +182,7 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping(value = "/publishSite") // il reste à manipuler les cas ou les pass sont pas correctes
+	@RequestMapping(value = "/publishSite") // il reste ï¿½ manipuler les cas ou les pass sont pas correctes
 	public String publishSite(Model model, Site site, HttpSession session) {
 		String email = (String) session.getAttribute("email");
 		if(email == null)
@@ -202,7 +202,7 @@ public class HomeController {
 		if((site.getUrl() != null) && (site.getDescription() != null) && (site.getNom() != null))
 		{
 			success = true;
-			model.addAttribute("bool", success); //là success
+			model.addAttribute("bool", success); //lï¿½ success
 			siteMetier.createSite(site);
 			return "publishSite";
 		}
@@ -223,10 +223,10 @@ public class HomeController {
 	public String saveuser(Model model, Utilisateur user, @RequestParam("confirmP")String confirmP) {
 		model.addAttribute("user", new Utilisateur());
 		Boolean present = false;
-		if(utilisateurM.findUserByEmail(user.getEmail()) == null)
+		if(utilisateurM.findUserByEmail(user.getEmail()) != null)
 		{
 			present = true;
-			model.addAttribute("present", present); //là erreur contact existe deja
+			model.addAttribute("present", present); //lï¿½ erreur contact existe deja
 			return "signup";
 		}
 		else if ((user.getEmail() == null) || (user.getPassword() == null) || (user.getPassword().length() < 6) || !(user.getPassword().equals(confirmP)))
@@ -236,7 +236,7 @@ public class HomeController {
 		else
 		{
 			present = false;
-			model.addAttribute("presdent", present); // Success : compte crée
+			model.addAttribute("present", present); // Success : compte crï¿½e
 			return "signin";
 		}
 	}
