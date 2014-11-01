@@ -283,6 +283,12 @@ public class CommentaireDaoImpl implements ObjetDao{
 		return null;
 	}
 
+	@Override
+	public Utilisateur findUserByEmail(String email) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }

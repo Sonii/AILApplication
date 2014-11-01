@@ -221,5 +221,11 @@ public class CategorieDaoImpl implements ObjetDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Utilisateur findUserByEmail(String email) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -1,8 +1,14 @@
-.jumbotron{
+.siteDisplay{
 	padding-top: 1px;
 	padding-left: 60px;
 	padding-bottom: 5px;
-	padding-right : 60px
+	padding-right : 60px;
+}
+
+.logginDiv {
+	width : 40%;
+	left : 30%;
+	position : absolute;
 }
 
 .monButton {
@@ -15,6 +21,5 @@
 
 .monClick {
 	float: right;
-	margin-top: 21px;
-	
+	margin-top: 21px;	
 }

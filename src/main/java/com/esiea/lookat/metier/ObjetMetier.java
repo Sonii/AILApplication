@@ -41,5 +41,6 @@ public interface ObjetMetier {
     public void modifyUser(Utilisateur utilisateur);
     public void deleteUser(Utilisateur utilisateur);
     public List<Site> getUtilisateurSites(Utilisateur user);
+    public Utilisateur findUserByEmail (String email);
 
 }

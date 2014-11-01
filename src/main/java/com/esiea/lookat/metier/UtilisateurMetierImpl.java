@@ -34,6 +34,11 @@ public class UtilisateurMetierImpl implements ObjetMetier{
 	}
 
 	@Override
+	public Utilisateur findUserByEmail(String email) {
+		return dao.findUserByEmail(email);
+	}
+	
+	@Override
 	public void modifyUser(Utilisateur utilisateur) {
 		dao.modifyUser(utilisateur);
 		
