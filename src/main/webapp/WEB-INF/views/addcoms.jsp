@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib  uri="http://www.springframework.org/tags/form" prefix="f" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -11,20 +11,14 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/Bootstrap-theme.css">
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.min.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/docs.min.js"></script> 
 </head>
 <body>
-<script> 
-	 	function OpenInNewTab(url) {
-		  var win = window.open(url, '_blank');
-		  win.focus();
-		}
-</script>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -42,34 +36,38 @@
             <li><a href="#about">About</a></li>
             <li><a href="publishSite">Publish WebSite</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="signin">Sign In</a></li>
+            <li class="active"><a href="signin">Sign In</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 
 	<br><br><br><br><br>
-	<div class="row row-offcanvas row-offcanvas-right">
-
-	<c:forEach items="${liste}" var="site"  varStatus="loop">
-	    <div class="container">
-
-	      <!-- Main component for a primary marketing message or call to action -->
-	      <div class="jumbotron siteDisplay">
-	      	<div>
-	        <h2 class="monTitre"><c:out value="#${loop.index + 1}" /> - ${site.nom}</h2>
-	   		<p class="monClick"> Vue : <span class="badge">${site.nbClick}</span></p>
-	   		 </div>
-	        <p>${site.description}</p>
-	          <p class = "monButton"><a class="btn btn-default" role="button" onclick="OpenInNewTab('${site.url}')" >LOOK-AT &raquo;</a> </p>
-	       	<br><br>
-	       	<a href="avis"> Notofications <span class="glyphicon glyphicon-flag"></span></a>
-	       	<br>
-	       	<a href="addcoms"> Add Comment <span class="glyphicon glyphicon-plus"></span></a>
-	      </div>
+	<f:form modelAttribute="user" method="post" action="signup"> 
+			<br><br><br><br><br><br>
+		<div class="input-group">
+		  <span class="input-group-addon">Pseudo</span>
+		  <f:input path="pseudo" type="text" class="form-control" placeholder=""/>
+		</div>
+		<br>
+		<div class="input-group">
+		  <span class="input-group-addon">Mail Address</span>
+		  <f:input type="text" class="form-control" placeholder="email@example.com" path="email"/>
+		</div>
+		<br>
+		<div class="input-group">
+		  <span class="input-group-addon">Password</span>
+		  <f:input type="password" class="form-control" placeholder="" path="password"/>
+		</div>
+		<br>
+		<div class="input-group">
+		  <span class="input-group-addon">Password</span>
+		  <input type="password" class="form-control" placeholder="Confirm Password" name="confirmP"/>
+		</div>
+		<br>
+		<br><br><br>
+		<f:button type="submit" class="btn btn-primary btn-sm" id="btn">Save</f:button>
+	</f:form>
 	
-	    </div> <!-- /container -->
-	</c:forEach>
-	</div>
 </body>
 </html>
