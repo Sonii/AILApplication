@@ -12,13 +12,16 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/Bootstrap-theme.css">
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.min.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/docs.min.js"></script> 
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Personalisation/monjs.js"></script>
+
 </head>
+
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
@@ -47,13 +50,13 @@
 	<div id="logDiv" class="jumbotron">
 		<h2>Sign in</h2>
 		<br><br>
-		<form role="form" method="post" action="login" class="border-row">
-		<div class="input-group input-group-lg">
+		<form name="login" role="form" method="post" action="login" class="border-row" onsubmit="return validateLogin()">
+		<div id="emailLoginForm" class="input-group input-group-lg form-group">
 		  <span class="input-group-addon"></span>
 		  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email">
 		</div>
 		<br>
-		<div class="input-group input-group-lg">
+		<div class="input-group input-group-lg form-group">
 		  <span class="input-group-addon"></span>
 		  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="pass">
 		</div>
