@@ -3,6 +3,7 @@ package com.esiea.lookat.entities;
 import java.io.Serializable;
 import java.util.List;
 
+
 public class Site implements Serializable{
 
 	private Integer id;
@@ -13,7 +14,6 @@ public class Site implements Serializable{
 	private Integer nbClick;
 	private List<Commentaire> listComms;
 	private Integer idUser;
-	private Utilisateur utilisateur;
 	
 	public Site() {
 		super();

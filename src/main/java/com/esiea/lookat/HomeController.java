@@ -136,14 +136,21 @@ public class HomeController {
 	
 	/* ----------------- Site Comms ------------------ */
 	@RequestMapping(value = "/avis")
-	public String avis(Model model, Integer id) {
+	public String avis(Model model, Integer idC) {
 		Site site = new Site();
-		site = siteMetier.findSite(id);
-		List<Commentaire> comms = new ArrayList<Commentaire>();
-		comms = siteMetier.getlistComs(site);
-		model.addAttribute("commentaire", new Commentaire());
-		model.addAttribute("liste", comms);
-		return "avisSite";
+		site = siteMetier.findSite(idC);
+		if(site == null)
+		{
+			return "home";
+		}
+		else
+		{
+			List<Commentaire> comms = new ArrayList<Commentaire>();
+			comms = siteMetier.getlistComs(site);
+			model.addAttribute("commentaire", new Commentaire());
+			model.addAttribute("liste", comms);
+			return "avisSite";
+		}
 	}
 	/* ----------------------------------------------- */
 	
@@ -234,7 +241,7 @@ public class HomeController {
 	public String saveuser(Model model, Utilisateur user, @RequestParam("confirmP")String confirmP) {
 		model.addAttribute("user", new Utilisateur());
 		Boolean present = false;
-		if(utilisateurM.findUserByEmail(user.getEmail()) == null)
+		if(utilisateurM.findUserByEmail(user.getEmail()) != null)
 		{
 			present = true;
 			model.addAttribute("present", present); //là erreur contact existe deja
@@ -247,7 +254,7 @@ public class HomeController {
 		else
 		{
 			present = false;
-			model.addAttribute("presdent", present); // Success : compte crée
+			model.addAttribute("present", present); // Success : compte crée
 			return "signin";
 		}
 	}
@@ -271,7 +278,7 @@ public class HomeController {
 	@RequestMapping(value = "/signout")
 	public String signout(Model model, HttpSession session) {
 		session.invalidate();
-		return "signIn";
+		return "signin";
 	}
 
 		////BASIC FUNCTION

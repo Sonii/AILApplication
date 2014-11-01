@@ -31,7 +31,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="home">Home</a></li>
+            <li><a href="home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="publishSite">Publish WebSite</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -43,11 +43,18 @@
 
 	<br><br><br><br><br>
 	<div class="row row-offcanvas row-offcanvas-right">
-	<c:forEach items="${liste}" var="commentaire">
+	<c:forEach items="${liste}" var="commentaire" varStatus="loop">
         <div class="col-xs-12 col-sm-9">
           <div class="row">
             <div class="col-xs-6 col-lg-4">
               <p>${commentaire.contenu}</p>
+              <br><br>
+              <c:forEach var="i" begin="1" end="${commentaire.etoile}">
+   				<span class="glyphicon glyphicon-star"></span>
+			  </c:forEach>
+			  <c:forEach var="j" begin="${commentaire.etoile}" end="4">
+	   			 <span class="glyphicon glyphicon-star-empty"></span>
+			  </c:forEach>
             </div><!--/.col-xs-6.col-lg-4-->
             </div>
         </div><!--/.col-xs-12.col-sm-9-->

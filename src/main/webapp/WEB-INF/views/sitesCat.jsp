@@ -63,7 +63,7 @@
 	        <p>${site.description}</p>
 	          <p class = "monButton"><a class="btn btn-default" role="button" onclick="OpenInNewTab('${site.url}')" >LOOK-AT &raquo;</a> </p>
 	       	<br><br>
-	       	<a href="avis"> Notofications <span class="glyphicon glyphicon-flag"></span></a>
+	       	<a href="avis?idC=${site.id}"> Notofications <span class="glyphicon glyphicon-flag"></span></a>
 	       	<br>
 	       	<a href="addcoms"> Add Comment <span class="glyphicon glyphicon-plus"></span></a>
 	      </div>
