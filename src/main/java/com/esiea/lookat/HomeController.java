@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.esiea.lookat.dao.DAOFactory;
 import com.esiea.lookat.dao.*;
 import com.esiea.lookat.entities.*;
 import com.esiea.lookat.metier.*;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -47,30 +48,92 @@ public class HomeController {
 	@Autowired
 	private ObjetMetier utilisateurM = new UtilisateurMetierImpl();
     
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		
-		Site site = new Site();
-		site.setUrl("http://localhost.fr");
-		site.setDescription("Une description");
-		site.setNom("LOCALHOST");
-		site.setIdCat(1);
-		site.setNbClick(0);
-		
-		siteMetier.createSite(site);
-		
-		Site site2 = siteMetier.findSite(9);
-
-		site2.setDescription("MODIFICATION OK2 !");
-		siteMetier.modifySite(site2);
-		
-		//siteDao.supprimer(site2);
-		
-		site2 = siteMetier.findSite(8);
-		if (site2 != null) {
-			model.addAttribute("monSite", site2.toString());
-		}
-		
+	/* ---------- Affichae des sites à partie de la catégorie ---------- */
+	@RequestMapping(value = "/mode")
+	public String getmodeCatSites(Model model) {
+		Categorie cat = new Categorie();
+		cat = categorieM.findCategorie(1);
+		List<Site> sites = new ArrayList<Site>();
+		sites = categorieM.getCategorieSites(cat);
+		model.addAttribute("site", new Site());
+		model.addAttribute("liste", sites);
+		return "sitesCat";
+	}
+	@RequestMapping(value = "/sport")
+	public String getsportCatSites(Model model) {
+		Categorie cat = new Categorie();
+		cat = categorieM.findCategorie(2);
+		List<Site> sites = new ArrayList<Site>();
+		sites = categorieM.getCategorieSites(cat);
+		model.addAttribute("site", new Site());
+		model.addAttribute("liste", sites);
+		return "sitesCat";
+	}
+	@RequestMapping(value = "/itech")
+	public String getitechCatSites(Model model) {
+		Categorie cat = new Categorie();
+		cat = categorieM.findCategorie(3);
+		List<Site> sites = new ArrayList<Site>();
+		sites = categorieM.getCategorieSites(cat);
+		model.addAttribute("site", new Site());
+		model.addAttribute("liste", sites);
+		return "sitesCat";
+	}
+	@RequestMapping(value = "/word")
+	public String getmondeCatSites(Model model) {
+		Categorie cat = new Categorie();
+		cat = categorieM.findCategorie(4);
+		List<Site> sites = new ArrayList<Site>();
+		sites = categorieM.getCategorieSites(cat);
+		model.addAttribute("site", new Site());
+		model.addAttribute("liste", sites);
+		return "sitesCat";
+	}
+	@RequestMapping(value = "/sales")
+	public String getsalesCatSites(Model model) {
+		Categorie cat = new Categorie();
+		cat = categorieM.findCategorie(5);
+		List<Site> sites = new ArrayList<Site>();
+		sites = categorieM.getCategorieSites(cat);
+		model.addAttribute("site", new Site());
+		model.addAttribute("liste", sites);
+		return "sitesCat";
+	}
+	@RequestMapping(value = "/cinema")
+	public String getcinemaCatSites(Model model) {
+		Categorie cat = new Categorie();
+		cat = categorieM.findCategorie(6);
+		List<Site> sites = new ArrayList<Site>();
+		sites = categorieM.getCategorieSites(cat);
+		model.addAttribute("site", new Site());
+		model.addAttribute("liste", sites);
+		return "sitesCat";
+	}
+	@RequestMapping(value = "/people")
+	public String getpeopleCatSites(Model model) {
+		Categorie cat = new Categorie();
+		cat = categorieM.findCategorie(7);
+		List<Site> sites = new ArrayList<Site>();
+		sites = categorieM.getCategorieSites(cat);
+		model.addAttribute("site", new Site());
+		model.addAttribute("liste", sites);
+		return "sitesCat";
+	}
+	@RequestMapping(value = "/jeux")
+	public String getjeuxCatSites(Model model) {
+		Categorie cat = new Categorie();
+		cat = categorieM.findCategorie(8);
+		List<Site> sites = new ArrayList<Site>();
+		sites = categorieM.getCategorieSites(cat);
+		model.addAttribute("site", new Site());
+		model.addAttribute("liste", sites);
+		return "sitesCat";
+	}
+	/* ---------------------------------------------------------- */
+	
+	
+	@RequestMapping(value = "/home")
+	public String home(Model model) {
 		return "home";
 	}
 	
