@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/Bootstrap-theme.css">
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.min.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.min.js"></script>
@@ -43,23 +44,25 @@
     </nav><!-- /.navbar -->
 
 	<br><br><br><br><br>
-	<div class="jumbotron logginDiv">
-		<form role="form" method="post" action="login">
-		
-
+	<div id="logDiv" class="jumbotron">
+		<h2>Sign in</h2>
+		<br><br>
+		<form role="form" method="post" action="login" class="border-row">
 		<div class="input-group input-group-lg">
-		  <span class="input-group-addon">@</span>
+		  <span class="input-group-addon"></span>
 		  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email">
 		</div>
+		<br>
 		<div class="input-group input-group-lg">
 		  <span class="input-group-addon"></span>
 		  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="pass">
 		</div>
-
-		  	<button type="submit" class="btn btn-primary btn-sm" id="btn">Connect</button>
+		<br>
+		  	<button type="submit" class="btn btn-primary btn-sm btnLogIn" id="btn">Log me in !</button>
 		  	<br><br><br><br>
-		  	 <a href="signup">Sign Up</a>
 		</form>
+		
+		<p class="newAccountLink"> New on Look-At ? <a href="signup">Create an account</a>
 	</div>
 	
 </body>

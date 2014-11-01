@@ -5,7 +5,7 @@
 	padding-right : 60px;
 }
 
-.logginDiv {
+#logDiv {
 	width : 40%;
 	left : 30%;
 	position : absolute;
@@ -21,5 +21,18 @@
 
 .monClick {
 	float: right;
-	margin-top: 21px;	
+	margin-top: 21px;
+}
+
+.border-row{
+	
+	border-bottom: 1px solid #ccc;
+}
+
+.btnLogIn {
+	float : right;
+}
+
+.newAccountLink {
+	text-align : center;
 }
