@@ -144,4 +144,10 @@ public class CategorieMetierImpl implements ObjetMetier{
 		return null;
 	}
 
+	@Override
+	public List<Site> getUtilisateurSites(Utilisateur user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -11,7 +11,8 @@ import com.esiea.lookat.entities.Utilisateur;
 public class SiteMetierImpl implements ObjetMetier{
 
 	private ObjetDao dao = new SiteDaoImpl();
-
+	private CommentaireMetierImpl comM = new CommentaireMetierImpl();
+	
 	public SiteMetierImpl() {
 		super();
 		dao = DAOFactory.getInstance().getSiteDao();
@@ -54,6 +55,9 @@ public class SiteMetierImpl implements ObjetMetier{
 
 	@Override
 	public void deleteSite(Site site) {
+		for (Commentaire c : dao.getlistComs(site)){
+			comM.deleteCom(c);
+		}
 		dao.deleteSite(site);
 	}
 
@@ -136,6 +140,12 @@ public class SiteMetierImpl implements ObjetMetier{
 
 	@Override
 	public Utilisateur findUser(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Site> getUtilisateurSites(Utilisateur user) {
 		// TODO Auto-generated method stub
 		return null;
 	}

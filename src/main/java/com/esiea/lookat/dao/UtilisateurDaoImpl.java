@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -17,11 +18,12 @@ import com.esiea.lookat.entities.Utilisateur;
 
 public class UtilisateurDaoImpl implements ObjetDao{
 	
-    private static final String SQL_SELECT_PAR_ID = "SELECT * FROM utilisaterus WHERE id = ?";
+    private static final String SQL_SELECT_PAR_ID = "SELECT * FROM utilisateurs WHERE id = ?";
     private static final String SQL_INSERT = "INSERT INTO utilisateurs (pseudo, password, email) VALUES (?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE utilisateurs SET id = ? , pseudo = ?, password = ?, email = ? WHERE id = ?";
     private static final String SQL_DELETE = "DELETE FROM utilisateurs WHERE id = ?";
- 
+    private static final String SQL_SELECT_ALLSITE_BY_USER = "SELECT site.id, site.url, site.nom, site.description, site.idCat, site.nbClick, site.idUser FROM utilisateurs, site WHERE site.idUser = utilisateurs.id  AND utilisateurs.id = ?";
+    
 	Logger logger = Logger.getLogger(UtilisateurDaoImpl.class);
 	private DAOFactory daoFactory;
 
@@ -37,6 +39,29 @@ public class UtilisateurDaoImpl implements ObjetDao{
 	public UtilisateurDaoImpl(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
+	
+	@Override // R�cuperer la liste de sites appartenant � une categorie
+	public List<Site> getUtilisateurSites(Utilisateur user) throws DAOException {
+		 	Connection connexion = null;
+	        PreparedStatement preparedStatement = null;
+	        ResultSet resultSet = null;
+	        ArrayList <Site> sites = new ArrayList<Site>();
+
+	        try {
+	            connexion = daoFactory.getConnection();
+	            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_ALLSITE_BY_USER, false, user.getId());
+	            resultSet = preparedStatement.executeQuery();
+	            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+	            while (resultSet.next()) {
+	                sites.add( mapSite(resultSet));
+	            }
+	        } catch (SQLException e) {
+	            throw new DAOException(e);
+	        } finally {
+	            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	        }
+	        return sites;
+	}
 	
 	@Override
 	public void createUser(Utilisateur utilisateur) throws DAOException {
@@ -100,7 +125,7 @@ public class UtilisateurDaoImpl implements ObjetDao{
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initialisationRequetePreparee( connexion, SQL_UPDATE, false, utilisateur.getId(), utilisateur.getPseudo(), utilisateur.getPassword(), utilisateur.getEmail());
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_UPDATE, false, utilisateur.getId(), utilisateur.getPseudo(), utilisateur.getPassword(), utilisateur.getEmail(), utilisateur.getId());
             int statut = preparedStatement.executeUpdate();
             /* Analyse du statut retourné par la requête d'insertion */
             if ( statut == 0 ) {

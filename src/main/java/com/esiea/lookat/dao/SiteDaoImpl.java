@@ -25,7 +25,7 @@ public class SiteDaoImpl implements ObjetDao {
     private static final String SQL_UPDATE = "UPDATE site SET id = ? , url = ?, nom = ?, description = ?, idCat = ?, nbClick = ?, idUser = ? WHERE id = ?";
     private static final String SQL_DELETE = "DELETE FROM site WHERE id = ?";
     private static final String SQL_SELECT_ALLCOM_BY_SITE = "SELECT commentaires.id, commentaires.etoile, commentaires.idSite, commentaires.contenu, commentaires.idUser FROM commentaires, site WHERE site.id = commentaires.idSite AND site.id = ?";
-    private static final String SQL_SELECT_CAT_BY_SITE = "SELECT categorie.id, categorie.nom FROM categories, site WHERE site.idCat = categories.id AND site.id = ?";
+    private static final String SQL_SELECT_CAT_BY_SITE = "SELECT categories.id, categories.nom FROM categories, site WHERE site.idCat = categories.id AND site.id = ?";
     private static final String SQL_SELECT_ALLSITE = "SELECT * FROM site";
     private static final String SQL_SELECT_USER_BY_SITE = "SELECT utilisateurs.id, utilisateurs.pseudo, utilisateurs.password, utilisateurs.email FROM utilisateurs, site WHERE site.idUser = utilisateurs.id AND site.id = ?";
     
@@ -315,6 +315,12 @@ public class SiteDaoImpl implements ObjetDao {
 
 	@Override
 	public Utilisateur findUser(Integer id) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Site> getUtilisateurSites(Utilisateur user) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}

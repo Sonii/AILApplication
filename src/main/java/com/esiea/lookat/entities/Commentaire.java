@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Commentaire implements Serializable{
 	
 	private Integer id;
-	private String etoile;
+	private Integer etoile;
 	private Integer idSite;
 	private String contenu;
 	private Integer idUser;
@@ -13,7 +13,7 @@ public class Commentaire implements Serializable{
 	public Commentaire() {
 		super();
 	}
-	public Commentaire(Integer id, String etoile, Integer idSite,String contenu, Integer idUser) {
+	public Commentaire(Integer id, Integer etoile, Integer idSite,String contenu, Integer idUser) {
 		super();
 		this.id = id;
 		this.etoile = etoile;
@@ -24,10 +24,10 @@ public class Commentaire implements Serializable{
 	public Integer getId() {
 		return id;
 	}
-	public String getEtoile() {
+	public Integer getEtoile() {
 		return etoile;
 	}
-	public void setEtoile(String etoile) {
+	public void setEtoile(Integer etoile) {
 		this.etoile = etoile;
 	}
 	public Integer getIdSite() {

@@ -45,7 +45,7 @@ public final class DAOUtilitaire {
     static Commentaire mapCommentaire( ResultSet resultSet ) throws SQLException {
         Commentaire com = new Commentaire();
         com.setId( resultSet.getInt( "id" ) );
-        com.setEtoile( resultSet.getString( "etoile" ) );
+        com.setEtoile( resultSet.getInt( "etoile" ) );
         com.setIdSite( resultSet.getInt( "idSite" ) );
         com.setContenu( resultSet.getString( "contenu" ) );
         com.setIdUser( resultSet.getInt( "idUser" ) );
