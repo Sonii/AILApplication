@@ -31,6 +31,16 @@ public class Site implements Serializable{
 		this.setIdUser(idUser);
 	}
 
+	public Site(String url, Integer idCat, String description, String nom,
+			Integer idUser) {
+		super();
+		this.url = url;
+		this.idCat = idCat;
+		this.description = description;
+		this.nom = nom;
+		this.idUser = idUser;
+	}
+
 	public List getListComms() {
 		return listComms;
 	}
