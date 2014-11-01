@@ -12,12 +12,19 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/Bootstrap-theme.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/docs.min.js"></script> 
 </head>
 <body>
+<script> 
+	 	function OpenInNewTab(url) {
+		  var win = window.open(url, '_blank');
+		  win.focus();
+		}
+</script>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -31,7 +38,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="home">Home</a></li>
+            <li><a href="home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#about">Publish WebSite</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -42,16 +49,22 @@
 
 	<br><br><br><br><br>
 	<div class="row row-offcanvas row-offcanvas-right">
-	<c:forEach items="${liste}" var="site">
-        <div class="col-xs-12 col-sm-9">
-          <div class="row">
-            <div class="col-xs-6 col-lg-4">
-              <h2>${site.nom}</h2>
-              <p>${site.description}</p>
-              <p><a class="btn btn-default" href="${site.url}" role="button">ACCESS &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            </div>
-        </div><!--/.col-xs-12.col-sm-9-->
+	<c:forEach items="${liste}" var="site"  varStatus="loop">
+	    <div class="container">
+
+	      <!-- Main component for a primary marketing message or call to action -->
+	      <div class="jumbotron">
+	      	<div>
+	        <h2 class="monTitre"><c:out value="#${loop.index + 1}" /> - ${site.nom}</h2>
+	   		<p class="monClick"> Vue : <span class="badge">${site.nbClick}</span></p>
+	   		 </div>
+	        <p>${site.description}</p>
+	          <p class = "monButton"><a class="btn btn-default" role="button" onclick="OpenInNewTab('${site.url}')" >LOOK-AT &raquo;</a> </p>
+	       
+	      </div>
+	
+	    </div> <!-- /container -->
+
 	</c:forEach>
 	</div>
 </body>
