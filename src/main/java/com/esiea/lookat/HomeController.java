@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Handles requests for the application home page.
@@ -150,11 +152,35 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/publishSite")
-	public String publishSite(Model model) {
-
-		return "publishSite";
+	@RequestMapping(value = "/login") // il reste à manipuler les cas ou les pass sont pas correctes
+	public String login(@RequestParam("email")String email,  @RequestParam("pass")String pass, Model model, HttpSession session) {
+		Boolean correct = true;
+		// function check that password is correct
+		if(correct == true)
+		{
+			session.setAttribute("email", email);
+			session.setAttribute("password", pass);
+		}
+		return "home"; // Il est obligatoire d'ajouter un petit label disant que pour pouvoir publier un site, ajouter un commentaire il faut se loguer
+		// Quand on clique sur publishSite alors qu'on est pas connecté il nous jette direct dans signin
+		// Il faut ajouter un bouton signin
 	}
+	
+	@RequestMapping(value = "/publishSite") // il reste à manipuler les cas ou les pass sont pas correctes
+	public String publishSite(Model model, Site site, HttpSession session) {
+		String email = (String) session.getAttribute("email");
+		if(email == null)
+		{
+			return "signin";
+		}
+		else
+		{
+			model.addAttribute("site", new Site());
+			return "publishSite";
+		}
+	}
+	
+
 		////BASIC FUNCTION
 		//Creation
 		/*Utilisateur user1 =  new Utilisateur(1, "thomasremond@yahoo.fr", "Sonii", "123456");

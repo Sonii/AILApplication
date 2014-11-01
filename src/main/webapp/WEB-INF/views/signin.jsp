@@ -34,34 +34,27 @@
           <ul class="nav navbar-nav">
             <li><a href="home">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li class="active"><a href="publishSite">Publish WebSite</a></li>
+            <li><a href="publishSite">Publish WebSite</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="login">Sign In</a></li>
+            <li class="active"><a href="login">Sign In</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 
 	<br><br><br><br><br>
-	<f:form modelAttribute="site" method="post" action="publishSite"> 
-		<div class="input-group">
-		  <span class="input-group-addon">Url</span>
-		  <f:input path="url" type="text" class="form-control" placeholder=""/>
-		</div>
-		<br>
-		<div class="input-group">
-		  <span class="input-group-addon">Description</span>
-		  <f:input type="text" class="form-control" placeholder="" path="description"/>
-		</div>
-		<br>
-		<div class="input-group">
-		  <span class="input-group-addon">Nom</span>
-		  <f:input type="text" class="form-control" placeholder="" path="nom"/>
-		</div>
-		<br>
-		<br><br><br>
-		<f:button type="submit" class="btn btn-primary btn-sm" id="btn">Save</f:button>
-	</f:form>
+		<form role="form" method="post" action="login">
+			<div class="form-group">
+		    	<label for="exampleInputEmail1">Email address</label>
+		  	  	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email">
+		  	</div>
+		  	<div class="form-group">
+		    	<label for="exampleInputPassword1">Password</label>
+		    	<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="pass">
+		 	</div>
+		 	<br><br><br><br>
+		  	<button type="submit" class="btn btn-primary btn-sm" id="btn">Connect</button>
+		</form>
 	
 </body>
 </html>
