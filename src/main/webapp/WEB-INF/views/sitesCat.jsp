@@ -55,7 +55,7 @@
 	    <div class="container">
 
 	      <!-- Main component for a primary marketing message or call to action -->
-	      <div class="jumbotron">
+	      <div class="jumbotron siteDisplay">
 	      	<div>
 	        <h2 class="monTitre"><c:out value="#${loop.index + 1}" /> - ${site.nom}</h2>
 	   		<p class="monClick"> Vue : <span class="badge">${site.nbClick}</span></p>

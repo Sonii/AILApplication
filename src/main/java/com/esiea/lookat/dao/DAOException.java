@@ -1,9 +1,7 @@
 package com.esiea.lookat.dao;
 
 public class DAOException extends RuntimeException {
-    /*
-     * Constructeurs
-     */
+
     public DAOException( String message ) {
         super( message );
     }
