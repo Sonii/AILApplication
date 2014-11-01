@@ -144,5 +144,11 @@ public class CommentaireMetierImpl implements ObjetMetier{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Site> getUtilisateurSites(Utilisateur user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

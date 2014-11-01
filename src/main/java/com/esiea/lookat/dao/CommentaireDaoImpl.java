@@ -277,6 +277,12 @@ public class CommentaireDaoImpl implements ObjetDao{
 		return null;
 	}
 
+	@Override
+	public List<Site> getUtilisateurSites(Utilisateur user) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }
