@@ -13,6 +13,7 @@ public class Site implements Serializable{
 	private Integer nbClick;
 	private List<Commentaire> listComms;
 	private Integer idUser;
+	private Utilisateur utilisateur;
 	
 	public Site() {
 		super();

@@ -9,6 +9,7 @@ public class Commentaire implements Serializable{
 	private Integer idSite;
 	private String contenu;
 	private Integer idUser;
+	private Utilisateur utilisateur;
 	
 	public Commentaire() {
 		super();

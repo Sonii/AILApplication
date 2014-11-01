@@ -42,14 +42,11 @@
 
 	<br><br><br><br><br>
 	<div class="row row-offcanvas row-offcanvas-right">
-	<c:forEach items="${liste}" var="site">
+	<c:forEach items="${liste}" var="commentaire">
         <div class="col-xs-12 col-sm-9">
           <div class="row">
             <div class="col-xs-6 col-lg-4">
-              <h2>${site.nom}</h2>
-              <p>${site.description}</p>
-              <p><a class="btn btn-default" href="${site.url}" role="button">ACCESS &raquo;</a></p>
-              <p><a class="btn btn-default" href="avis?id=${site.id}" role="button">Notifications <span class="glyphicon glyphicon-flag"></span> &raquo;</a></p>
+              <p>${commentaire.contenu}</p>
             </div><!--/.col-xs-6.col-lg-4-->
             </div>
         </div><!--/.col-xs-12.col-sm-9-->

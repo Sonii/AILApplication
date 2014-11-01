@@ -132,17 +132,28 @@ public class HomeController {
 	}
 	/* ---------------------------------------------------------- */
 	
+	/* ----------------- Site Comms ------------------ */
+	@RequestMapping(value = "/avis")
+	public String avis(Model model, Integer id) {
+		Site site = new Site();
+		site = siteMetier.findSite(id);
+		List<Commentaire> comms = new ArrayList<Commentaire>();
+		comms = siteMetier.getlistComs(site);
+		model.addAttribute("commentaire", new Commentaire());
+		model.addAttribute("liste", comms);
+		return "avisSite";
+	}
+	/* ----------------------------------------------- */
 	
 	@RequestMapping(value = "/home")
 	public String home(Model model) {
-
 		return "home";
 	}
 	
 	@RequestMapping(value = "/publishSite")
-	public String home2(Model model) {
+	public String publishSite(Model model) {
 
-		return "home";
+		return "publishSite";
 	}
 		////BASIC FUNCTION
 		//Creation
