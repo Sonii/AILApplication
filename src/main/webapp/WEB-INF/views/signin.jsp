@@ -36,7 +36,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="publishSite">Publish WebSite</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li class="active"><a href="login">Sign In</a></li>
+            <li class="active"><a href="singnin">Sign In</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->

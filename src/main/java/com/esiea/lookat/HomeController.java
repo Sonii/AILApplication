@@ -152,6 +152,11 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/signin")
+	public String signin(Model model) {
+		return "signin";
+	}
+	
 	@RequestMapping(value = "/login") // il reste à manipuler les cas ou les pass sont pas correctes
 	public String login(@RequestParam("email")String email,  @RequestParam("pass")String pass, Model model, HttpSession session) {
 		Boolean correct = true;
@@ -169,16 +174,23 @@ public class HomeController {
 	@RequestMapping(value = "/publishSite") // il reste à manipuler les cas ou les pass sont pas correctes
 	public String publishSite(Model model, Site site, HttpSession session) {
 		String email = (String) session.getAttribute("email");
-		if(email == null)
+	/*	if(email == null)
 		{
 			return "signin";
 		}
 		else
-		{
+		{*/
 			model.addAttribute("site", new Site());
 			return "publishSite";
-		}
+		//}
 	}
+	
+	@RequestMapping(value = "/savesite")
+	public String saveSite(Model model, Site site) {
+		siteMetier.createSite(site);
+		return "publishSite";
+	}
+	
 	
 	@RequestMapping(value = "/signup")
 	public String signup(Model model) {
@@ -189,11 +201,17 @@ public class HomeController {
 	@RequestMapping(value = "/saveuser")
 	public String saveuser(Model model, Utilisateur user, @RequestParam("confirmP")String confirmP) {
 		model.addAttribute("user", new Utilisateur());
-		if((user.getPassword().isEmpty()) || (user.getPassword().length() < 6))
+		Boolean present;
+		if(utilisateurM.findUserByEmail(user.getEmail()) != null)
+		{
+			present = false;
 			return "signup";
-		if((confirmP.isEmpty()) || (!confirmP.equals(user.getPassword())))
+		}
+		else
+		{
+			present = true;
 			return "signup";
-		return null;
+		}
 	}
 	
 

@@ -36,14 +36,14 @@
             <li><a href="#about">About</a></li>
             <li class="active"><a href="publishSite">Publish WebSite</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="login">Sign In</a></li>
+            <li><a href="signin">Sign In</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 
 	<br><br><br><br><br>
-	<f:form modelAttribute="site" method="post" action="publishSite"> 
+	<f:form modelAttribute="site" method="post" action="savesite"> 
 		<div class="input-group">
 		  <span class="input-group-addon">Url</span>
 		  <f:input path="url" type="text" class="form-control" placeholder=""/>
