@@ -19,6 +19,7 @@ import com.esiea.lookat.entities.Utilisateur;
 public class UtilisateurDaoImpl implements ObjetDao{
 	
     private static final String SQL_SELECT_PAR_ID = "SELECT * FROM utilisateurs WHERE id = ?";
+    private static final String SQL_SELECT_PAR_EMAIL = "SELECT * FROM utilisateurs WHERE email = ?";
     private static final String SQL_INSERT = "INSERT INTO utilisateurs (pseudo, password, email) VALUES (?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE utilisateurs SET id = ? , pseudo = ?, password = ?, email = ? WHERE id = ?";
     private static final String SQL_DELETE = "DELETE FROM utilisateurs WHERE id = ?";
@@ -39,6 +40,29 @@ public class UtilisateurDaoImpl implements ObjetDao{
 	public UtilisateurDaoImpl(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
+	
+	@Override
+	public Utilisateur findUserByEmail(String email) throws DAOException {
+		Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Utilisateur user = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_EMAIL, false, email);
+            resultSet = preparedStatement.executeQuery();
+            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+            if (resultSet.next()) {
+                user = mapUtilisateur(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+        }
+        return user;
+	}
 	
 	@Override // R�cuperer la liste de sites appartenant � une categorie
 	public List<Site> getUtilisateurSites(Utilisateur user) throws DAOException {
@@ -263,6 +287,8 @@ public class UtilisateurDaoImpl implements ObjetDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 }

@@ -150,4 +150,10 @@ public class CategorieMetierImpl implements ObjetMetier{
 		return null;
 	}
 
+	@Override
+	public Utilisateur findUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

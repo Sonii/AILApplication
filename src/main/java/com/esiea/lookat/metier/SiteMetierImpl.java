@@ -149,5 +149,11 @@ public class SiteMetierImpl implements ObjetMetier{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Utilisateur findUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
