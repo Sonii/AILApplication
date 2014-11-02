@@ -10,7 +10,6 @@
     <meta name="author" content="">
     
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.min.css">
 
@@ -20,7 +19,8 @@
 	
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Personalisation/monjs.js"></script>
-</head>
+	
+	</head>
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
@@ -46,17 +46,20 @@
     </nav><!-- /.navbar -->
 
 	<br><br><br><br><br>
-	<f:form modelAttribute="com" method="post" action="addcoms?idS=${idS}"> 
-			<br><br><br><br><br><br>
-		<div class="input-group">
+	<div id="logDiv" class="jumbotron">
+		<h2>Laisser un commentaire</h2>
+		<br><br>
+	<f:form name="comForm" modelAttribute="com" method="post" action="addcoms?idS=${idS}" onsubmit="return validateCom()"> 
+		<div id="contenuComForm" class="input-group input-group-lg form-group">
 		  <span class="input-group-addon"></span>
-		  <f:textarea path="contenu" type="text" class="form-control" placeholder=""/>
+		  <f:textarea rows="7" style="height:200px;" class="form-control" path="contenu" placeholder="Votre commentaire.."/>
 		</div>
 		<br>
-			<div class="input-group">
-		  <span class="input-group-addon">Stars</span>
-		  <f:select name="selValue" class="selectpicker" path="etoile">
-			   <option value="0"> ------ </option>
+		<div id="starComForm" class="input-group input-group-lg form-group">
+		  <span class="input-group-addon"></span>
+		  <f:select name="selValue" class="form-control selectpicker" path="etoile">
+			   <option disabled selected="selected" value=""> Stars </option>
+			   <option value="0">0</option>
 			   <option value="1">1</option>
 			   <option value="2">2</option>
 			   <option value="3">3</option>
@@ -65,8 +68,9 @@
 		  </f:select>
 		</div>
 		<br><br><br>
-		<f:button type="submit" class="btn btn-primary btn-sm" id="btn">Save</f:button>
+		<f:button type="submit" class="btn btn-primary btn-sm btnLogIn" id="btn">Envoyer mon avis</f:button>
 	</f:form>
+	</div>
 	
 </body>
 </html>

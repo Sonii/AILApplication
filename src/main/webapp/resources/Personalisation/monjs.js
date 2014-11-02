@@ -261,3 +261,80 @@ function validatePublish(){
 	     }
 	return ok;
 }
+
+function validatePass() {
+	 var span=null;
+	    var message=null;
+	    var ok = true;
+	    
+	    var confirmChek =  document.getElementById("confirmpassForm");
+	    confirmChek.classList.remove("has-error");
+	 	message = document.getElementById("helpErrorConfirm");
+	 	if (message) message.parentNode.removeChild(message);
+	    
+	  	var confirm = document.forms["passForm"]["confirmP"].value;
+	  	
+	    if (confirm == null || confirm == "") {
+	    	confirmChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorConfirm");
+	        span.appendChild( document.createTextNode("Please confirm your Password") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        confirmChek.appendChild(span);
+	        ok=false;
+	        
+	     }
+	    
+	    return ok;
+}
+
+function validateCom() {
+	
+	 var span=null;
+	    var message=null;
+	    var ok = true;
+	    
+	    var contChek =  document.getElementById("contenuComForm");
+	    contChek.classList.remove("has-error");
+	 	message = document.getElementById("helpErrorCont");
+	 	if (message) message.parentNode.removeChild(message);
+	    
+	  	var cont = document.forms["comForm"]["contenu"].value;
+	  	
+	    if (cont == null || cont == "") {
+	    	contChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorCont");
+	        span.appendChild( document.createTextNode("Please enter something") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        contChek.appendChild(span);
+	        ok=false;
+	        
+	     }
+	    
+	    var starChek =  document.getElementById("starComForm");
+	    starChek.classList.remove("has-error");
+	 	message = document.getElementById("helpErrorStar");
+	 	if (message) message.parentNode.removeChild(message);
+	    
+	  	var confirm = document.forms["comForm"]["etoile"].value;
+	  	
+	    if (confirm == null || confirm == "") {
+	    	starChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorStar");
+	        span.appendChild( document.createTextNode("Please confirm your Password") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        starChek.appendChild(span);
+	        ok=false;
+	        
+	     }
+	    
+	    
+	    return ok;
+	    
+	    
+}
