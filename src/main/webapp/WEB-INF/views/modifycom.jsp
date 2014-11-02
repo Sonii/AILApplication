@@ -43,7 +43,7 @@
     </nav><!-- /.navbar -->
 
 	<br><br><br><br><br>
-	<f:form modelAttribute="commentaire" method="post" action="modifyCom?idC=${idC}"> 
+	<f:form modelAttribute="commentaire" method="put" action="modifyCom?idC=${idC}"> 
 			<br><br><br><br><br><br>
 		<div class="input-group">
 		  <span class="input-group-addon"></span>

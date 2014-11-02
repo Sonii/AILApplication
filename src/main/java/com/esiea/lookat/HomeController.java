@@ -539,6 +539,7 @@ public class HomeController {
 					if(u.getEmail().equals(email))
 					{
 						model.addAttribute("commentaire", new Commentaire());
+						model.addAttribute("com", com);
 						model.addAttribute("idC", idC);
 						return "modifycom";
 					}
