@@ -5,7 +5,6 @@ function validateLogin(){
 	    var dotpos = x.lastIndexOf(".");
 	    var formCheck = document.getElementById("emailLoginForm");
 	    var span=null;
-	    var first=null;
 	    var message=null;
 	    var ok = true;
 	    
@@ -23,7 +22,6 @@ function validateLogin(){
 	       span.appendChild( document.createTextNode("Please enter a valid E-Mail") );
 	       span.className = span.className + "help-block";
 	       span.style.display="table-caption";
-	       first = formCheck.firstChild;
 	       formCheck.appendChild(span);
 	       ok=false;
 	    }
@@ -43,7 +41,6 @@ function validateLogin(){
 	        span.appendChild( document.createTextNode("Please enter a Password") );
 	        span.className = span.className + "help-block";
 	        span.style.display="table-caption";
-	        first = passChek.firstChild;
 	        passChek.appendChild(span);
 	        ok=false;
 	        
@@ -53,100 +50,291 @@ function validateLogin(){
 }
 
 function validateSignup() {
-	
-	var x = document.forms["login"]["email"].value;
-	var atpos = x.indexOf("@");
-    var dotpos = x.lastIndexOf(".");
-    var formCheck = document.getElementById("emailSignupForm");
+
     var span=null;
-    var first=null;
     var message=null;
     var ok = true;
-    var passChek =  document.getElementById("passSignupForm");
-    var confirmCheck = document.getElementById("confirmSignupForm");
+
     var pseudoChek =  document.getElementById("pseudoSignupForm");
-    
-    var z = document.forms["signup"]["pseudo"].value;
-    
 	 pseudoChek.classList.remove("has-error");
   	 message = document.getElementById("helpErrorPseudo");
   	 if (message) message.parentNode.removeChild(message);
+  	 
+  	var pseudo = document.forms["signup"]["pseudo"].value;
   	
-    if (z == null || z == "") {
+    if (pseudo == null || pseudo == "") {
     	pseudoChek.classList.add("has-error");
         span = document.createElement("span");
         span.setAttribute("id", "helpErrorPseudo");
         span.appendChild( document.createTextNode("Please enter a Pseudo") );
         span.className = span.className + "help-block";
         span.style.display="table-caption";
-        first = pseudoChek.firstChild;
         pseudoChek.appendChild(span);
         ok=false;
         
      }
 
-    
-    formCheck.classList.remove("has-error");
+	
+    var emailCheck = document.getElementById("emailSignupForm");
+    emailCheck.classList.remove("has-error");
  	message = document.getElementById("helpErrorEmail");
     if (message) message.parentNode.removeChild(message);
-    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length ) {
-    	
-        formCheck.classList.add("has-error");
     
+    var email = document.forms["signup"]["email"].value;
+	var atpos = email.indexOf("@");
+    var dotpos = email.lastIndexOf(".");
+    
+    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=email.length ) {
+    	
+    	emailCheck.classList.add("has-error");
         span = document.createElement("span");
         span.setAttribute("id", "helpErrorEmail");
         span.appendChild( document.createTextNode("Please enter a valid E-Mail") );
         span.className = span.className + "help-block";
         span.style.display="table-caption";
-        first = formCheck.firstChild;
-        formCheck.appendChild(span);
+        emailCheck.appendChild(span);
         ok=false;
         
      }
-  
+
     
-    var y = document.forms["signup"]["pass"].value;
-    
+    var passChek =  document.getElementById("passSignupForm");
     passChek.classList.remove("has-error");
  	message = document.getElementById("helpErrorPass");
-    if (message) message.parentNode.removeChild(message);
+ 	if (message) message.parentNode.removeChild(message);
     
-    if (y == null || y == "") {
-    	
+  	var pass = document.forms["signup"]["password"].value;
+  	
+    if (pass == null || pass == "") {
     	passChek.classList.add("has-error");
         span = document.createElement("span");
         span.setAttribute("id", "helpErrorPass");
         span.appendChild( document.createTextNode("Please enter a Password") );
         span.className = span.className + "help-block";
         span.style.display="table-caption";
-        first = passChek.firstChild;
         passChek.appendChild(span);
-        ok = false;
-        
+        ok=false;
      }
-
+    else if (pass.length < 6) {
+    	passChek.classList.add("has-error");
+        span = document.createElement("span");
+        span.setAttribute("id", "helpErrorPass");
+        span.appendChild( document.createTextNode("Has to be at least 6 charaters password") );
+        span.className = span.className + "help-block";
+        span.style.display="table-caption";
+        passChek.appendChild(span);
+        ok=false;
+    }
     
-
     
-    var w = document.forms["signup"]["confirm"].value;
-    
+    var confirmChek =  document.getElementById("confirmSignupForm");
     confirmChek.classList.remove("has-error");
  	message = document.getElementById("helpErrorConfirm");
-    if (message) message.parentNode.removeChild(message);
+ 	if (message) message.parentNode.removeChild(message);
     
-    if (w == null || w == "") {
+  	var confirm = document.forms["signup"]["confirmP"].value;
+  	
+    if (confirm == null || confirm == "") {
     	confirmChek.classList.add("has-error");
-    	   
         span = document.createElement("span");
         span.setAttribute("id", "helpErrorConfirm");
         span.appendChild( document.createTextNode("Please confirm your Password") );
         span.className = span.className + "help-block";
         span.style.display="table-caption";
-        first = confirmChek.firstChild;
         confirmChek.appendChild(span);
         ok=false;
         
      }
     
     return ok;
+}
+
+function checkPass() {
+	var pass = document.forms["signup"]["password"].value;
+	var confirm = document.forms["signup"]["confirmP"].value;
+	var button =  document.getElementById("btnCreateAccount");
+	
+	var confirmChek =  document.getElementById("confirmSignupForm");
+	var message = document.getElementById("helpErrorConfirmSame");
+	
+	if (pass === confirm) {
+	    confirmChek.classList.remove("has-error");
+	 	if (message) message.parentNode.removeChild(message);
+	 	button.disabled = false;
+	}
+	else {
+		if (!message) { 
+	    	confirmChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorConfirmSame");
+	        span.appendChild( document.createTextNode("Your Password doesn't match each other") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        confirmChek.appendChild(span);
+	        button.disabled = true;
+		}
+	        
+	}
+	return;
+}
+
+function validatePublish(){
+	
+	    var span=null;
+	    var message=null;
+	    var ok = true;
+	    
+	    var urlChek =  document.getElementById("urlPublishForm");
+	    urlChek.classList.remove("has-error");
+	  	 message = document.getElementById("helpErrorUrl");
+	  	 if (message) message.parentNode.removeChild(message);
+	  	 
+	  	var url = document.forms["publish"]["url"].value;
+	  	
+	    if (url == null || url == "") {
+	    	urlChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorUrl");
+	        span.appendChild( document.createTextNode("Please enter a valid URL") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        urlChek.appendChild(span);
+	        ok=false;
+	        
+	     }
+	    
+	   var nomChek =  document.getElementById("nomPublishForm");
+	    nomChek.classList.remove("has-error");
+	  	 message = document.getElementById("helpErrorNom");
+	  	 if (message) message.parentNode.removeChild(message);
+	  	 
+	  	var nom = document.forms["publish"]["nom"].value;
+	  	
+	    if (nom == null || nom == "") {
+	    	nomChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorNom");
+	        span.appendChild( document.createTextNode("Please enter a name for your site") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        nomChek.appendChild(span);
+	        ok=false;
+	        
+	     }
+	    
+	    var descChek =  document.getElementById("descriptionPublishForm");
+	    descChek.classList.remove("has-error");
+	  	 message = document.getElementById("helpErrorDesc");
+	  	 if (message) message.parentNode.removeChild(message);
+	  	 
+	  	var description = document.forms["publish"]["description"].value;
+	  	
+	    if (description == null || description == "") {
+	    	descChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorDesc");
+	        span.appendChild( document.createTextNode("Please enter a description") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        descChek.appendChild(span);
+	        ok=false;
+	        
+	     }
+	    
+	    var catChek =  document.getElementById("categoriePublishForm");
+	    catChek.classList.remove("has-error");
+	  	 message = document.getElementById("helpErrorCat");
+	  	 if (message) message.parentNode.removeChild(message);
+	  	 
+	  	var idCat = document.forms["publish"]["idCat"].value;
+	  	
+	    if (idCat == null || idCat == 0 || idCat =="0") {
+	    	catChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorCat");
+	        span.appendChild( document.createTextNode("Please enter a Categorie") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        catChek.appendChild(span);
+	        ok=false;
+	        
+	     }
+	return ok;
+}
+
+function validatePass() {
+	 var span=null;
+	    var message=null;
+	    var ok = true;
+	    
+	    var confirmChek =  document.getElementById("confirmpassForm");
+	    confirmChek.classList.remove("has-error");
+	 	message = document.getElementById("helpErrorConfirm");
+	 	if (message) message.parentNode.removeChild(message);
+	    
+	  	var confirm = document.forms["passForm"]["confirmP"].value;
+	  	
+	    if (confirm == null || confirm == "") {
+	    	confirmChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorConfirm");
+	        span.appendChild( document.createTextNode("Please confirm your Password") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        confirmChek.appendChild(span);
+	        ok=false;
+	        
+	     }
+	    
+	    return ok;
+}
+
+function validateCom() {
+	
+	 var span=null;
+	    var message=null;
+	    var ok = true;
+	    
+	    var contChek =  document.getElementById("contenuComForm");
+	    contChek.classList.remove("has-error");
+	 	message = document.getElementById("helpErrorCont");
+	 	if (message) message.parentNode.removeChild(message);
+	    
+	  	var cont = document.forms["comForm"]["contenu"].value;
+	  	
+	    if (cont == null || cont == "") {
+	    	contChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorCont");
+	        span.appendChild( document.createTextNode("Please enter something") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        contChek.appendChild(span);
+	        ok=false;
+	        
+	     }
+	    
+	    var starChek =  document.getElementById("starComForm");
+	    starChek.classList.remove("has-error");
+	 	message = document.getElementById("helpErrorStar");
+	 	if (message) message.parentNode.removeChild(message);
+	    
+	  	var confirm = document.forms["comForm"]["etoile"].value;
+	  	
+	    if (confirm == null || confirm == "") {
+	    	starChek.classList.add("has-error");
+	        span = document.createElement("span");
+	        span.setAttribute("id", "helpErrorStar");
+	        span.appendChild( document.createTextNode("Please confirm your Password") );
+	        span.className = span.className + "help-block";
+	        span.style.display="table-caption";
+	        starChek.appendChild(span);
+	        ok=false;
+	        
+	     }
+	    
+	    
+	    return ok;
+	    
+	    
 }

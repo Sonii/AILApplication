@@ -9,17 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/Bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.min.css">
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
+
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/docs.min.js"></script> 
-		<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Personalisation/monjs.js"></script>
 	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Personalisation/monjs.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
@@ -43,7 +44,16 @@
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
+
     </nav><!-- /.navbar -->
+     <c:if test="${created == true}">
+		   <div class = "MonCompteCreer" > 
+		   		<p class="monCompteCreer" style="position:initial;">Félicitation, votre compte a bien été créé ! Redirection..</p>
+		   		<script language="javascript">
+					setTimeout("window.location='signin'",4000);
+		   		</script>
+		   	</div>
+	 </c:if>
 	<br><br><br><br><br>
 	<div id="logDiv" class="jumbotron">
 	<h2>Sign Up</h2>
@@ -51,7 +61,7 @@
 		<c:if test="${present == true}">
 		   <p class="monErreur">Email déjà utilisée. Re-essayer :<p>
 		</c:if>
-		<f:form name="signup" modelAttribute="user" method="post" action="signup" onsubmit="return validateSignup()"> 
+		<f:form name="signup" modelAttribute="user" method="post" action="saveuser" onsubmit="return validateSignup()"> 
 		
 		<div id="pseudoSignupForm" class="input-group input-group-lg form-group">
 		  <span class="input-group-addon"></span>
@@ -65,14 +75,14 @@
 		<br>
 		<div  id="passSignupForm" class="input-group input-group-lg form-group">
 		  <span class="input-group-addon"></span>
-		  <f:input name="pass" type="password" class="form-control" placeholder="Password" path="password"/>
+		  <f:input type="password" class="form-control" placeholder="Password" path="password"/>
 		</div>
 		<br>
 		<div  id="confirmSignupForm" class="input-group input-group-lg form-group">
 		  <span class="input-group-addon"></span>
-		  <input name="confirm" type="password" class="form-control" placeholder="Confirm Password" name="confirmP" onkeyup="checkPass()"/>
+		  <input  type="password" class="form-control" placeholder="Confirm Password" name="confirmP" onkeyup="checkPass()"/>
 		</div>
 		<br>
-		<f:button type="submit" class="btn btn-primary btn-sm btnLogIn" id="btn">Create my Account</f:button>
+		<f:button type="submit" class="btn btn-primary btn-sm btnLogIn" id="btnCreateAccount" disabled="false">Create my Account</f:button>
 	</f:form>
 	</div>

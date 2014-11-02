@@ -278,7 +278,7 @@ public class HomeController {
 	public String saveSite(Model model, Site site, HttpSession session) {
 		Boolean success;
 		String email = (String) session.getAttribute("email");
-		if((site.getUrl() != null) && (site.getDescription() != null) && (site.getNom() != null) && (site.getIdCat() != 0) && (email != null))
+		if( (site !=  null) && (site.getUrl() != null) && (site.getDescription() != null) && (site.getNom() != null) && (site.getIdCat() !=  null) && (site.getIdCat() != 0) && (email != null))
 		{
 			Utilisateur util = utilisateurM.findUserByEmail(email);
 			success = true;
@@ -340,22 +340,34 @@ public class HomeController {
 	public String saveuser(Model model, Utilisateur user, @RequestParam("confirmP")String confirmP) {
 		model.addAttribute("user", new Utilisateur());
 		Boolean present = false;
+		Boolean created = false;
+
 		if(utilisateurM.findUserByEmail(user.getEmail()) != null)
 		{
+
 			present = true;
-			model.addAttribute("present", present); //lï¿½ erreur contact existe deja
+			created = false;
+			model.addAttribute("present", present);
+			model.addAttribute("created", created); // Success : compte crï¿½e
 			return "signup";
 		}
 		else if ((user.getEmail().isEmpty()) || (user.getPassword().isEmpty()) || (user.getPassword().length() < 6) || !(user.getPassword().equals(confirmP)))
 		{
+
+			present = false;
+			created = false;
+			model.addAttribute("present", present); // Success : compte crï¿½e
+			model.addAttribute("created", created); // Success : compte crï¿½e
 			return "signup";
 		}
 		else
 		{
 			present = false;
+			created = true;
 			model.addAttribute("present", present); // Success : compte crï¿½e
+			model.addAttribute("created", created); // Success : compte crï¿½e
 			utilisateurM.createUser(user);
-			return "signin";
+			return "signup";
 		}
 	}
 	
@@ -407,11 +419,11 @@ public class HomeController {
 			if((pass != null) && (pass.equals(confirmP))) // on check le confirmP est bon
 			{
 				u = utilisateurM.findUser(site.getIdUser());
-				if((email != null) && (email.equals(u.getEmail()))) // on check qu'il s'agit toujours d'un site appartenant à l'utilisateur en question
+				if((email != null) && (email.equals(u.getEmail()))) // on check qu'il s'agit toujours d'un site appartenant ï¿½ l'utilisateur en question
 				{	
-					// afin d'éviter qu'un utilisateur mal veillant supprime un site d'un autre user
+					// afin d'ï¿½viter qu'un utilisateur mal veillant supprime un site d'un autre user
 					siteMetier.deleteSite(site);
-					return "home"; // Si possible notification disant que le site a bien été supprimé
+					return "home"; // Si possible notification disant que le site a bien ï¿½tï¿½ supprimï¿½
 				}
 				else
 				{

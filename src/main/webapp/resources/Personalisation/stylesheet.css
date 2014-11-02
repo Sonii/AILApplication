@@ -40,3 +40,21 @@
 .monErreur{
 	color : red;
 }
+
+.jumbotron {
+	border-radius: 5px;
+	border-style : solid;
+	border-color: black;
+	border-width: 1px;
+}
+
+.monCompteCreer{
+    display: inline-block;
+    position: absolute;
+    top: 51px;
+    width: 100%;
+    text-align: center;
+    background-color: rgb(110, 211, 110);
+    color: white;
+    font-size: large;
+}
