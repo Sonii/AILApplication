@@ -15,7 +15,8 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/docs.min.js"></script> 
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/docs.min.js"></script>
+  
 </head>
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
@@ -40,28 +41,14 @@
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
-
-	<br><br><br><br><br>
-	<div class="row row-offcanvas row-offcanvas-right">
-	<c:forEach items="${liste}" var="commentaire" varStatus="loop">
-        <div class="col-xs-12 col-sm-9">
-          <div class="row">
-          <br><br><br><br>
-          <p> Publié Par : <c:out value="${users[loop.index]}"/></p>
-          <br><br>
-            <div class="col-xs-6 col-lg-4">
-              <p>${commentaire.contenu}</p>
-              <br><br>
-              <c:forEach var="i" begin="1" end="${commentaire.etoile}">
-   				<span class="glyphicon glyphicon-star"></span>
-			  </c:forEach>
-			  <c:forEach var="j" begin="${commentaire.etoile}" end="4">
-	   			 <span class="glyphicon glyphicon-star-empty"></span>
-			  </c:forEach>
-            </div><!--/.col-xs-6.col-lg-4-->
-            </div>
-        </div><!--/.col-xs-12.col-sm-9-->
-	</c:forEach>
-	</div>
+    <br><br><br><br>
+    <form role="form" method="post" action="confirmDelete?idS=${id}">
+	    <div  id="confirmSignupForm" class="input-group input-group-lg form-group">
+			 <span class="input-group-addon"></span>
+			 <input type="password" class="form-control" placeholder="Confirm Password" name="confirmP"/>
+		</div>
+		<br>
+		<button type="submit" class="btn btn-primary btn-sm" id="btn">Confirm</button>
+	</form>
 </body>
 </html>

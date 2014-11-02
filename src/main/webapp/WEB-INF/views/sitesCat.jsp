@@ -63,11 +63,15 @@
 	        <p>${site.description}</p>
 	          <p class = "monButton"><a class="btn btn-default" role="button" onclick="OpenInNewTab('${site.url}')" >LOOK-AT &raquo;</a> </p>
 	       	<br><br>
+	       	 <p> Publié Par : <c:out value="${users[loop.index]}"/></p>
+	       	<br><br>
 	       	<a href="avis?idC=${site.id}"> Notofications <span class="glyphicon glyphicon-flag"></span></a>
 	       	<br>
 	       	<a href="addcoms"> Add Comment <span class="glyphicon glyphicon-plus"></span></a>
+	       	<br>
+	       	<a href="deleteSite?idS=${site.id}"> Delete WebSite <span class="glyphicon glyphicon-trash"></span></a>
 	      </div>
-	
+		<br><br><br>
 	    </div> <!-- /container -->
 	</c:forEach>
 	</div>

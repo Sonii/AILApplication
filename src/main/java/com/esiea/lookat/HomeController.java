@@ -58,6 +58,13 @@ public class HomeController {
 		cat = categorieM.findCategorie(1);
 		List<Site> sites = new ArrayList<Site>();
 		sites = categorieM.getCategorieSites(cat);
+		List<String> users = new ArrayList<String>();
+		for(Site site : sites)
+		{
+			Utilisateur u = utilisateurM.findUser(site.getIdUser());
+			users.add(u.getPseudo());
+		}
+		model.addAttribute("users", users);
 		model.addAttribute("site", new Site());
 		model.addAttribute("liste", sites);
 		return "sitesCat";
@@ -68,6 +75,13 @@ public class HomeController {
 		cat = categorieM.findCategorie(2);
 		List<Site> sites = new ArrayList<Site>();
 		sites = categorieM.getCategorieSites(cat);
+		List<String> users = new ArrayList<String>();
+		for(Site site : sites)
+		{
+			Utilisateur u = utilisateurM.findUser(site.getIdUser());
+			users.add(u.getPseudo());
+		}
+		model.addAttribute("users", users);
 		model.addAttribute("site", new Site());
 		model.addAttribute("liste", sites);
 		return "sitesCat";
@@ -78,16 +92,30 @@ public class HomeController {
 		cat = categorieM.findCategorie(3);
 		List<Site> sites = new ArrayList<Site>();
 		sites = categorieM.getCategorieSites(cat);
+		List<String> users = new ArrayList<String>();
+		for(Site site : sites)
+		{
+			Utilisateur u = utilisateurM.findUser(site.getIdUser());
+			users.add(u.getPseudo());
+		}
+		model.addAttribute("users", users);
 		model.addAttribute("site", new Site());
 		model.addAttribute("liste", sites);
 		return "sitesCat";
 	}
-	@RequestMapping(value = "/word")
+	@RequestMapping(value = "/world")
 	public String getmondeCatSites(Model model) {
 		Categorie cat = new Categorie();
 		cat = categorieM.findCategorie(4);
 		List<Site> sites = new ArrayList<Site>();
 		sites = categorieM.getCategorieSites(cat);
+		List<String> users = new ArrayList<String>();
+		for(Site site : sites)
+		{
+			Utilisateur u = utilisateurM.findUser(site.getIdUser());
+			users.add(u.getPseudo());
+		}
+		model.addAttribute("users", users);
 		model.addAttribute("site", new Site());
 		model.addAttribute("liste", sites);
 		return "sitesCat";
@@ -98,6 +126,13 @@ public class HomeController {
 		cat = categorieM.findCategorie(5);
 		List<Site> sites = new ArrayList<Site>();
 		sites = categorieM.getCategorieSites(cat);
+		List<String> users = new ArrayList<String>();
+		for(Site site : sites)
+		{
+			Utilisateur u = utilisateurM.findUser(site.getIdUser());
+			users.add(u.getPseudo());
+		}
+		model.addAttribute("users", users);
 		model.addAttribute("site", new Site());
 		model.addAttribute("liste", sites);
 		return "sitesCat";
@@ -108,6 +143,13 @@ public class HomeController {
 		cat = categorieM.findCategorie(6);
 		List<Site> sites = new ArrayList<Site>();
 		sites = categorieM.getCategorieSites(cat);
+		List<String> users = new ArrayList<String>();
+		for(Site site : sites)
+		{
+			Utilisateur u = utilisateurM.findUser(site.getIdUser());
+			users.add(u.getPseudo());
+		}
+		model.addAttribute("users", users);
 		model.addAttribute("site", new Site());
 		model.addAttribute("liste", sites);
 		return "sitesCat";
@@ -118,6 +160,13 @@ public class HomeController {
 		cat = categorieM.findCategorie(7);
 		List<Site> sites = new ArrayList<Site>();
 		sites = categorieM.getCategorieSites(cat);
+		List<String> users = new ArrayList<String>();
+		for(Site site : sites)
+		{
+			Utilisateur u = utilisateurM.findUser(site.getIdUser());
+			users.add(u.getPseudo());
+		}
+		model.addAttribute("users", users);
 		model.addAttribute("site", new Site());
 		model.addAttribute("liste", sites);
 		return "sitesCat";
@@ -128,6 +177,13 @@ public class HomeController {
 		cat = categorieM.findCategorie(8);
 		List<Site> sites = new ArrayList<Site>();
 		sites = categorieM.getCategorieSites(cat);
+		List<String> users = new ArrayList<String>();
+		for(Site site : sites)
+		{
+			Utilisateur u = utilisateurM.findUser(site.getIdUser());
+			users.add(u.getPseudo());
+		}
+		model.addAttribute("users", users);
 		model.addAttribute("site", new Site());
 		model.addAttribute("liste", sites);
 		return "sitesCat";
@@ -147,6 +203,13 @@ public class HomeController {
 		{
 			List<Commentaire> comms = new ArrayList<Commentaire>();
 			comms = siteMetier.getlistComs(site);
+			List<String> users = new ArrayList<String>();
+			for(Commentaire com : comms)
+			{
+				Utilisateur u = utilisateurM.findUser(com.getIdUser());
+				users.add(u.getPseudo());
+			}
+			model.addAttribute("users", users);
 			model.addAttribute("commentaire", new Commentaire());
 			model.addAttribute("liste", comms);
 			return "avisSite";
@@ -162,7 +225,7 @@ public class HomeController {
 	@RequestMapping(value = "/signin")
 	public String signin(Model model, HttpSession session) {
 		String email = (String) session.getAttribute("email");
-		if(email != null)
+		if(email == null)
 		{
 			return "signin";
 		}
@@ -186,8 +249,8 @@ public class HomeController {
 		else if((utilisateurM.findUserByEmail(email) != null) && (utilisateurM.findUserByEmail(email).getPassword().equals(pass)))
 		{
 			session.setAttribute("email", email);
-			session.setAttribute("password", pass);
-			return "publishSite";
+			session.setAttribute("pass", pass);
+			return "home";
 		}
 		else
 		{
@@ -219,8 +282,8 @@ public class HomeController {
 		{
 			Utilisateur util = utilisateurM.findUserByEmail(email);
 			success = true;
-
 			site.setIdUser(util.getId());
+			site.setNbClick(0);
 			model.addAttribute("bool", success); //lï¿½ success
 			siteMetier.createSite(site);
 			return "publishSite";
@@ -280,6 +343,69 @@ public class HomeController {
 	public String signout(Model model, HttpSession session) {
 		session.invalidate();
 		return "signin";
+	}
+	
+	@RequestMapping(value = "/deleteSite")
+	public String deleteSite(Model model, HttpSession session, Integer idS) {
+		String email = (String) session.getAttribute("email");
+		Site site = new Site();
+		Utilisateur u = new Utilisateur();
+		site = siteMetier.findSite(idS);
+		if(site != null)
+		{
+			u = utilisateurM.findUser(site.getIdUser());
+			if(email == null)
+			{
+				return "signin";
+			}
+			else if(email.equals(u.getEmail()))
+			{
+				model.addAttribute("id", idS);
+				return "confirmPass";
+			}
+			else
+			{
+				return "rights";
+			}
+		}
+		else
+		{
+			return "home";
+		}
+	}
+	
+	@RequestMapping(value = "/confirmDelete")
+	public String confirmDelete(Model model, HttpSession session, Integer idS, @RequestParam("confirmP")String confirmP) { 
+		String email = (String) session.getAttribute("email"); // Thomas ne change stp surtt pas ce code si t'as des questions tu 
+		String pass = (String) session.getAttribute("pass"); // me demande, Merci :-)
+		Site site = new Site();
+		Utilisateur u = new Utilisateur();
+		site = siteMetier.findSite(idS);
+		if(site != null) // on check toujours si le site est trouvable 
+		{
+			if((pass != null) && (pass.equals(confirmP))) // on check le confirmP est bon
+			{
+				u = utilisateurM.findUser(site.getIdUser());
+				if((email != null) && (email.equals(u.getEmail()))) // on check qu'il s'agit toujours d'un site appartenant à l'utilisateur en question
+				{	
+					// afin d'éviter qu'un utilisateur mal veillant supprime un site d'un autre user
+					siteMetier.deleteSite(site);
+					return "home"; // Si possible notification disant que le site a bien été supprimé
+				}
+				else
+				{
+					return "rights";
+				}
+			}
+			else
+			{
+				return "rights";
+			}
+		}
+		else
+		{
+			return "home";
+		}
 	}
 
 		////BASIC FUNCTION

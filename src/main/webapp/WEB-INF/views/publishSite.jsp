@@ -46,7 +46,7 @@
 	<f:form modelAttribute="site" method="post" action="savesite"> 
 		<div class="input-group">
 		  <span class="input-group-addon">Url</span>
-		  <f:input path="url" type="text" class="form-control" placeholder=""/>
+		  <f:input type="text" class="form-control" placeholder="" path="url"/>
 		</div>
 		<br>
 		<div class="input-group">
