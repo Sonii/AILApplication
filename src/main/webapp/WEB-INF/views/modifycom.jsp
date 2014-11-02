@@ -50,7 +50,7 @@
 	<div id="logDiv" class="jumbotron">
 		<h2>Laisser un commentaire</h2>
 		<br><br>
-	<f:form name="comForm" modelAttribute="commentaire" method="post" action="modifyCom?idC=${idC}" onsubmit="return validateCom()"> 
+	<f:form name="comForm" modelAttribute="commentaire" method="put" action="modifyCom?idC=${idC}" onsubmit="return validateCom()"> 
 		<div id="contenuComForm" class="input-group input-group-lg form-group">
 		  <span class="input-group-addon"></span>
 		  <f:textarea rows="7" style="height:200px;" class="form-control" path="contenu" placeholder="Votre commentaire.."/>

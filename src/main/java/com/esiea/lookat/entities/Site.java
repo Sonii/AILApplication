@@ -1,11 +1,10 @@
 package com.esiea.lookat.entities;
 
 import java.io.Serializable;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 
-public class Site implements Serializable, Comparable<Site>{
+public class Site implements Serializable, Comparable<Site> {
 
 	private Integer id;
 	private String url;

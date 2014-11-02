@@ -22,6 +22,9 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.esiea.lookat" />
+	<context:component-scan base-package="com.esiea.lookat.entities" />
+	<context:component-scan base-package="com.esiea.lookat.metier" />
+	<context:component-scan base-package="com.esiea.lookat.dao" />
 	
 	
 	
