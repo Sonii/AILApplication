@@ -175,15 +175,17 @@ function checkPass() {
 		}
 	        
 	}
+	return;
 }
 
 function validatePublish(){
+	
 	    var span=null;
 	    var message=null;
 	    var ok = true;
 	    
 	    var urlChek =  document.getElementById("urlPublishForm");
-		 urlChek.classList.remove("has-error");
+	    urlChek.classList.remove("has-error");
 	  	 message = document.getElementById("helpErrorUrl");
 	  	 if (message) message.parentNode.removeChild(message);
 	  	 
@@ -201,7 +203,7 @@ function validatePublish(){
 	        
 	     }
 	    
-	    var nomChek =  document.getElementById("nomPublishForm");
+	   var nomChek =  document.getElementById("nomPublishForm");
 	    nomChek.classList.remove("has-error");
 	  	 message = document.getElementById("helpErrorNom");
 	  	 if (message) message.parentNode.removeChild(message);

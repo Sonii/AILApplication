@@ -278,7 +278,7 @@ public class HomeController {
 	public String saveSite(Model model, Site site, HttpSession session) {
 		Boolean success;
 		String email = (String) session.getAttribute("email");
-		if((site.getUrl() != null) && (site.getDescription() != null) && (site.getNom() != null) && (site.getIdCat() != 0) && (email != null))
+		if( (site !=  null) && (site.getUrl() != null) && (site.getDescription() != null) && (site.getNom() != null) && (site.getIdCat() !=  null) && (site.getIdCat() != 0) && (email != null))
 		{
 			Utilisateur util = utilisateurM.findUserByEmail(email);
 			success = true;

@@ -9,16 +9,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/Bootstrap-theme.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.min.css">
+
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/docs.min.js"></script> 
+	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Personalisation/monjs.js"></script>
 </head>
+
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
@@ -47,25 +51,25 @@
 	<div id="logDiv" class="jumbotron">
 	<h2>Publier un nouveau site :</h2>
 		<br><br>
-		<f:form name="publish" modelAttribute="site" method="post" action="savesite" onsubmit="return validatePublish()"> 
-			<div class="input-group">
+		<f:form name="publish" modelAttribute="site" method="post" action="savesite"  onsubmit="return validatePublish()">  
+			<div id="urlPublishForm" class="input-group input-group-lg form-group">
 			  <span class="input-group-addon"></span>
-			  <f:input id="urlPublishForm" type="url" class="form-control" placeholder="URL" path="url"/>
+			  <f:input  type="url" class="form-control" placeholder="URL" path="url"/>
 			</div>
 			<br>
-			<div class="input-group">
+			<div id="nomPublishForm" class="input-group input-group-lg form-group">
 			  <span class="input-group-addon"></span>
-			  <f:input id="nomPublishForm" type="text" class="form-control" placeholder="Nom" path="nom"/>
+			  <f:input  type="text" class="form-control" placeholder="Nom" path="nom"/>
 			</div>
 			<br>
-			<div class="input-group">
+			<div id="descriptionPublishForm" class="input-group input-group-lg form-group">
 			  <span class="input-group-addon"></span>
-			  <f:textarea id="descriptionPublishForm" rows="7" class="form-control" placeholder="une description" path="description"/>
+			  <f:textarea  rows="7" style="height:200px;" class="form-control"  placeholder="une description" path="description"/>
 			</div>
 			<br>
-			<div class="input-group">
+			<div id="categoriePublishForm" class="input-group input-group-lg form-group">
 			  <span class="input-group-addon"></span>
-			  <f:select id="categoriePublishForm" name="selValue" class="form-control selectpicker" path="idCat">
+			  <f:select  name="selValue" class="form-control selectpicker" path="idCat">
 				   <option disabled selected="selected" value="0"> Catégorie </option>
 				   <option value="1">Mode</option>
 				   <option value="2">Sport</option>
@@ -79,7 +83,7 @@
 			</div>
 			<br>
 			<br>
-			<f:button type="submit" class="btn btn-primary btn-sm btnLogIn" id="btn">Publier ce site</f:button>
+			<f:button type="submit" class="btn btn-primary btn-sm btnLogIn" id="btnCreateAccount">Publier ce site</f:button>
 		</f:form>
 	</div>
 </body>
