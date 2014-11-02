@@ -286,7 +286,42 @@ public class HomeController {
 			site.setNbClick(0);
 			model.addAttribute("bool", success); //l� success
 			siteMetier.createSite(site);
-			return "publishSite";
+			if(site.getIdCat() == 1)
+			{
+				return getmodeCatSites(model);
+			}
+			else if(site.getIdCat() == 2)
+			{
+				return getsportCatSites(model);
+			}
+			else if(site.getIdCat() == 3)
+			{
+				return getitechCatSites(model);
+			}
+			else if(site.getIdCat() == 4)
+			{
+				return getmondeCatSites(model);
+			}
+			else if(site.getIdCat() == 5)
+			{
+				return getsalesCatSites(model);
+			}
+			else if(site.getIdCat() == 6)
+			{
+				return getcinemaCatSites(model);
+			}
+			else if(site.getIdCat() == 7)
+			{
+				return getpeopleCatSites(model);
+			}
+			else if(site.getIdCat() == 8)
+			{
+				return getjeuxCatSites(model);
+			}
+			else
+			{
+				return "home";
+			}
 		}
 		else
 		{
@@ -311,7 +346,7 @@ public class HomeController {
 			model.addAttribute("present", present); //l� erreur contact existe deja
 			return "signup";
 		}
-		else if ((user.getEmail() == null) || (user.getPassword() == null) || (user.getPassword().length() < 6) || !(user.getPassword().equals(confirmP)))
+		else if ((user.getEmail().isEmpty()) || (user.getPassword().isEmpty()) || (user.getPassword().length() < 6) || (!user.getPassword().equals(confirmP)))
 		{
 			return "signup";
 		}
@@ -319,24 +354,9 @@ public class HomeController {
 		{
 			present = false;
 			model.addAttribute("present", present); // Success : compte cr�e
+			utilisateurM.createUser(user);
 			return "signin";
 		}
-	}
-	
-	@RequestMapping(value = "/addcoms")
-	public String addcoms(Model model) {
-		model.addAttribute("com", new Commentaire());
-		return "addcoms";
-	}
-	
-	@RequestMapping(value = "/savecom")
-	public String savecom(Model model, Commentaire com, HttpSession session) {
-		model.addAttribute("com", new Commentaire());
-		if(session.getAttribute("email") == null)
-		{
-			return "signin";
-		}
-		return "addcoms";
 	}
 	
 	@RequestMapping(value = "/signout")
@@ -400,6 +420,78 @@ public class HomeController {
 			else
 			{
 				return "rights";
+			}
+		}
+		else
+		{
+			return "rights";
+		}
+	}
+	
+	@RequestMapping(value = "/addcomf")
+	public String addcomf(Model model, HttpSession session, Integer idS)
+	{
+		String email = (String) session.getAttribute("email");
+		if(idS != null)
+		{
+			if(email != null)
+			{
+				Site site = new Site();
+				site = siteMetier.findSite(idS);
+				if(site != null)
+				{
+					model.addAttribute("idS", idS);
+					model.addAttribute("com", new Commentaire());
+					return "addcoms";
+				}
+				else
+				{
+					return "home";
+				}
+			}
+			else
+			{
+				return "signin";
+			}
+		}
+		else
+		{
+			return "home";
+		}
+	}
+	
+	@RequestMapping(value = "/addcoms")
+	public String addcoms(Model model, HttpSession session, Integer idS, Commentaire com)
+	{
+		String email = (String) session.getAttribute("email");
+		if(idS != null)
+		{
+			if(email != null)
+			{
+				Site site = new Site();
+				site = siteMetier.findSite(idS);
+				if(site != null)
+				{
+					Utilisateur u = new Utilisateur();
+					u = utilisateurM.findUserByEmail(email);
+					List<Site> liste = new ArrayList<Site>();
+					com.setIdSite(idS);
+					com.setIdUser(u.getId());
+					if(com.getEtoile() == null)
+					{
+						com.setEtoile(0);
+					}
+					commentaireM.createCom(com);
+					return this.avis(model, site.getId());
+				}
+				else
+				{
+					return "home";
+				}
+			}
+			else
+			{
+				return "signin";
 			}
 		}
 		else

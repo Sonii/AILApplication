@@ -65,9 +65,9 @@
 	       	<br><br>
 	       	 <p> Publié Par : <c:out value="${users[loop.index]}"/></p>
 	       	<br><br>
-	       	<a href="avis?idC=${site.id}"> Notofications <span class="glyphicon glyphicon-flag"></span></a>
+	       	<a href="avis?idC=${site.id}"> Notifications <span class="glyphicon glyphicon-flag"></span></a>
 	       	<br>
-	       	<a href="addcoms"> Add Comment <span class="glyphicon glyphicon-plus"></span></a>
+	       	<a href="addcomf?idS=${site.id}"> Add Comment <span class="glyphicon glyphicon-plus"></span></a>
 	       	<br>
 	       	<a href="deleteSite?idS=${site.id}"> Delete WebSite <span class="glyphicon glyphicon-trash"></span></a>
 	      </div>
