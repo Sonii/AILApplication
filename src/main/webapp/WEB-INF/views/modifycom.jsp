@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib  uri="http://www.springframework.org/tags/form" prefix="f" %>
 <%@ page session="false" %>
 <html>
@@ -8,16 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/Bootstrap-theme.css">
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Bootstrap/CSS/bootstrap-theme.min.css">
+
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Bootstrap/jquery/docs.min.js"></script> 
-</head>
+	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/Personalisation/stylesheet.css">
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/Personalisation/monjs.js"></script>
+	
+	</head>
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container">
@@ -43,27 +47,31 @@
     </nav><!-- /.navbar -->
 
 	<br><br><br><br><br>
-	<f:form modelAttribute="commentaire" method="put" action="modifyCom?idC=${idC}"> 
-			<br><br><br><br><br><br>
-		<div class="input-group">
+	<div id="logDiv" class="jumbotron">
+		<h2>Laisser un commentaire</h2>
+		<br><br>
+	<f:form name="comForm" modelAttribute="commentaire" method="put" action="modifyCom?idC=${idC}" onsubmit="return validateCom()"> 
+		<div id="contenuComForm" class="input-group input-group-lg form-group">
 		  <span class="input-group-addon"></span>
-		  <f:textarea path="contenu" type="text" class="form-control" placeholder=""/>
+		  <f:textarea rows="7" style="height:200px;" class="form-control" path="contenu" placeholder="Votre commentaire.."/>
 		</div>
 		<br>
-			<div class="input-group">
-		  <span class="input-group-addon">Stars</span>
-		  <f:select name="selValue" class="selectpicker" path="etoile">
-			   <option value="0"> ------ </option>
-			   <option value="1">1</option>
-			   <option value="2">2</option>
-			   <option value="3">3</option>
-			   <option value="4">4</option>
-			   <option value="5">5</option>
+		<div id="starComForm" class="input-group input-group-lg form-group">
+		  <span class="input-group-addon"></span>
+
+		  <f:select name="selValue" class="form-control selectpicker" path="etoile">
+			   <option value="0" <c:if test="${commentaire.etoile == 0}"> selected </c:if> >0</option>
+			   <option value="1"<c:if test="${commentaire.etoile == 1}"> selected </c:if>>1</option>
+			   <option value="2"<c:if test="${commentaire.etoile == 2}"> selected </c:if>>2</option>
+			   <option value="3"<c:if test="${commentaire.etoile == 3}"> selected </c:if>>3</option>
+			   <option value="4"<c:if test="${commentaire.etoile == 4}"> selected </c:if>>4</option>
+			   <option value="5"<c:if test="${commentaire.etoile == 5}"> selected </c:if>>5</option>
 		  </f:select>
 		</div>
 		<br><br><br>
-		<f:button type="submit" class="btn btn-primary btn-sm" id="btn">Save</f:button>
+		<f:button type="submit" class="btn btn-primary btn-sm btnLogIn" id="btn">Envoyer mon avis</f:button>
 	</f:form>
+	</div>
 	
 </body>
 </html>

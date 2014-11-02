@@ -47,26 +47,26 @@
 
 	<br><br><br><br><br>
 	<div class="row row-offcanvas row-offcanvas-right">
+	
 	<c:forEach items="${liste}" var="commentaire" varStatus="loop">
-        <div class="col-xs-12 col-sm-9">
-          <div class="row">
-          <br><br><br><br>
-          Publié Par : <c:out value="${users[loop.index]}"/>
-          <a href="modifyCommentf?idC=${commentaire.id}"> Modify <span class="glyphicon glyphicon-pencil"></span></a>
+	  <div class="container">
+         <div class="jumbotron siteDisplay">
+         <p style="display:inline;font-weight: bold;" ><c:out value="${users[loop.index]}"/> :</p>
+          <c:forEach var="j" begin="${commentaire.etoile}" end="4">
+	   			 <span style="float:right;" class="glyphicon glyphicon-star-empty"></span>
+			  </c:forEach>
+               <c:forEach var="i" begin="1" end="${commentaire.etoile}">
+   				<span style="float:right;" class="glyphicon glyphicon-star"></span>
+			  </c:forEach>
+			 
+          <p>"${commentaire.contenu}"</p>
+
+            <div style="text-align:right;"> 
+            <a href="modifyCommentf?idC=${commentaire.id}"> Modify <span class="glyphicon glyphicon-pencil"></span></a>
 	      <a href="deleteComment?idC=${commentaire.id}"> Delete <span class="glyphicon glyphicon-trash"></span></a> 
-          <br>
-            <div class="col-xs-6 col-lg-4">
-              <p>${commentaire.contenu}</p>
-              <br><br>
-              <c:forEach var="i" begin="1" end="${commentaire.etoile}">
-   				<span class="glyphicon glyphicon-star"></span>
-			  </c:forEach>
-			  <c:forEach var="j" begin="${commentaire.etoile}" end="4">
-	   			 <span class="glyphicon glyphicon-star-empty"></span>
-			  </c:forEach>
-            </div><!--/.col-xs-6.col-lg-4-->
-            </div>
-        </div><!--/.col-xs-12.col-sm-9-->
+	      </div>
+        </div>
+        </div>
 	</c:forEach>
 	</div>
 </body>

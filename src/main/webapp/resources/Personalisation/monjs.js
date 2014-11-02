@@ -330,7 +330,6 @@ function validateCom() {
 	        span.style.display="table-caption";
 	        starChek.appendChild(span);
 	        ok=false;
-	        
 	     }
 	    
 	    
