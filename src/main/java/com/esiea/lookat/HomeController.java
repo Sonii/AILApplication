@@ -274,6 +274,62 @@ public class HomeController {
 		}
 	}
 	
+	@RequestMapping(value = "/addclick")
+	public String addClick(Model model, @RequestParam("siteId")String siteId) {
+		if (siteId == null) {
+			return "home";
+		}
+		else {
+			int idSite = Integer.parseInt(siteId);
+			Site site = siteMetier.findSite(idSite);
+			if (site == null) {
+				return "home";
+			}
+			else {
+				site.setNbClick(site.getNbClick()+1);
+				siteMetier.modifySite(site);
+				if(site.getIdCat() == 1)
+				{
+					return getmodeCatSites(model);
+				}
+				else if(site.getIdCat() == 2)
+				{
+					return getsportCatSites(model);
+				}
+				else if(site.getIdCat() == 3)
+				{
+					return getitechCatSites(model);
+				}
+				else if(site.getIdCat() == 4)
+				{
+					return getmondeCatSites(model);
+				}
+				else if(site.getIdCat() == 5)
+				{
+					return getsalesCatSites(model);
+				}
+				else if(site.getIdCat() == 6)
+				{
+					return getcinemaCatSites(model);
+				}
+				else if(site.getIdCat() == 7)
+				{
+					return getpeopleCatSites(model);
+				}
+				else if(site.getIdCat() == 8)
+				{
+					return getjeuxCatSites(model);
+				}
+				else
+				{
+					return "home";
+				}
+				
+			}
+		}
+		
+	}
+	
 	@RequestMapping(value = "/savesite")
 	public String saveSite(Model model, Site site, HttpSession session) {
 		Boolean success;

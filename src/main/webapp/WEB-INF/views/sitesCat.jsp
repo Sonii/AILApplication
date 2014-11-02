@@ -64,8 +64,13 @@
 	   		<p class="monClick"> Vue : <span class="badge">${site.nbClick}</span></p>
 	   		 </div>
 	        <p>"${site.description}"</p>
-	          <p class = "monButton"><a class="btn btn-default" role="button" onclick="OpenInNewTab('${site.url}')" >LOOK-AT &raquo;</a> </p>
-	       
+	        <form method="post" action="addclick">
+	        <input type="hidden" name="siteId" value="<c:out value='${site.id}'/>" >
+	        <p class = "monButton">
+	        <button style="position:relative; bottom:50px;left:10px;" type="submit" class="btn btn-primary btn-sm btnLogIn" id="btn" onclick="OpenInNewTab('${site.url}')">LOOK-AT &raquo;</button>
+	        </p>
+	        </form>
+
 	       <div>
 	       	 <p  style="display:inline;"> Publié Par : <c:out value="${users[loop.index]}"/></p>
 
