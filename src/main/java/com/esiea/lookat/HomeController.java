@@ -497,7 +497,6 @@ public class HomeController {
 						{
 							com.setEtoile(0);
 						}
-						com.setEtoile(0);
 						commentaireM.createCom(com);
 						return this.avis(model, site.getId());
 					}
@@ -538,7 +537,7 @@ public class HomeController {
 					u = utilisateurM.findUser(com.getIdUser());
 					if(u.getEmail().equals(email))
 					{
-						model.addAttribute("commentaire", new Commentaire());
+						model.addAttribute("commentaire", com);
 						model.addAttribute("idC", idC);
 						return "modifycom";
 					}
