@@ -346,7 +346,7 @@ public class HomeController {
 			model.addAttribute("present", present); //l� erreur contact existe deja
 			return "signup";
 		}
-		else if ((user.getEmail().isEmpty()) || (user.getPassword().isEmpty()) || (user.getPassword().length() < 6) || (!user.getPassword().equals(confirmP)))
+		else if ((user.getEmail().isEmpty()) || (user.getPassword().isEmpty()) || (user.getPassword().length() < 6) || !(user.getPassword().equals(confirmP)))
 		{
 			return "signup";
 		}
@@ -399,6 +399,7 @@ public class HomeController {
 		String email = (String) session.getAttribute("email"); // Thomas ne change stp surtt pas ce code si t'as des questions tu 
 		String pass = (String) session.getAttribute("pass"); // me demande, Merci :-)
 		Site site = new Site();
+		Boolean wrong = false;
 		Utilisateur u = new Utilisateur();
 		site = siteMetier.findSite(idS);
 		if(site != null) // on check toujours si le site est trouvable 
@@ -419,6 +420,7 @@ public class HomeController {
 			}
 			else
 			{
+				wrong = true;
 				return "rights";
 			}
 		}
@@ -477,12 +479,20 @@ public class HomeController {
 					List<Site> liste = new ArrayList<Site>();
 					com.setIdSite(idS);
 					com.setIdUser(u.getId());
-					if(com.getEtoile() == null)
+					if(com.getContenu() != null)
 					{
+						if(com.getEtoile() == null)
+						{
+							com.setEtoile(0);
+						}
 						com.setEtoile(0);
+						commentaireM.createCom(com);
+						return this.avis(model, site.getId());
 					}
-					commentaireM.createCom(com);
-					return this.avis(model, site.getId());
+					else
+					{
+						return "addcoms";
+					}
 				}
 				else
 				{
@@ -499,82 +509,191 @@ public class HomeController {
 			return "home";
 		}
 	}
-
-		////BASIC FUNCTION
-		//Creation
-		/*Utilisateur user1 =  new Utilisateur(1, "thomasremond@yahoo.fr", "Sonii", "123456");
-		utilisateurM.createUser(user1);
-		model.addAttribute("user1", user1.toString());
-		
-		
-		Site site1 = new Site(1,"http://localhost.fr",1,"Mon PC en Local","LocalHost",0,user1.getId());
-		Site site2 = new Site(1,"http://www.google.fr",1,"Ca c google","Google",0,user1.getId());
-		siteMetier.createSite(site1);
-		model.addAttribute("site1", site1.toString());
-		siteMetier.createSite(site2);
-		model.addAttribute("site2", site2.toString());
-		
-		Commentaire com1 =  new Commentaire (1,2,site1.getId(),"Tres bon site",user1.getId());
-		Commentaire com2 =  new Commentaire (1,3,site1.getId(),"Exellent",user1.getId());
-		commentaireM.createCom(com1);
-		model.addAttribute("com1", com1.toString());
-		commentaireM.createCom(com2);
-		model.addAttribute("com2", com2.toString());
-		
-		
-		//Modifié puis chercher
-		user1.setPassword("LOL");
-		utilisateurM.modifyUser(user1);
-		user1=utilisateurM.findUser(user1.getId());
-		model.addAttribute("user12", user1.toString());
-		
-		site1.setDescription("Mon PC 2");
-		siteMetier.modifySite(site1);
-		site1=siteMetier.findSite(site1.getId());
-		model.addAttribute("site12", site1.toString());
-		
-		com1.setContenu("En faite c null lol");
-		commentaireM.modifyCom(com1);
-		com1=commentaireM.findCom(com1.getId());
-		model.addAttribute("com12", com1.toString());
-		
-		////Advanced Function
-		//Site
-		ArrayList <Commentaire> comssite = (ArrayList<Commentaire>) siteMetier.getlistComs(site1);
-		model.addAttribute("coms",comssite.toString());
-		
-		Categorie catsite = siteMetier.getSiteCategorie(site1);
-		model.addAttribute("catsite",catsite.toString());
-		
-		ArrayList <Site> sitessite = (ArrayList<Site>) siteMetier.getAllSites();
-		model.addAttribute("sites", sitessite.toString());
-		
-		Utilisateur usersite = siteMetier.getSiteUser(site1);
-		model.addAttribute("usersite", usersite.toString());
-		
-
-		
-		
-		//Commentaire
-		Site sitecom = commentaireM.getSiteCom(com1);
-		model.addAttribute("sitecom", sitecom.toString());
-		
-		Utilisateur usercom = commentaireM.getComUser(com1);
-		model.addAttribute("usercom", usercom.toString());
-		
-		
-		
-		//Categorie
-		Categorie catcat = categorieM.findCategorie(1);
-		model.addAttribute("catcat",catcat.toString());
-		
-		ArrayList <Categorie> catscat = (ArrayList<Categorie>) categorieM.getAllCategories();
-		model.addAttribute("catscat", catscat.toString());
-		
-		ArrayList <Site> sitescat = (ArrayList<Site>) categorieM.getCategorieSites(catcat);
-		model.addAttribute("sitescat", sitescat);
-
-
-		utilisateurM.deleteUser(user1);*/
+	
+	@RequestMapping(value = "/modifyCommentf")
+	public String modifyCommentf(Model model, HttpSession session, Integer idC)
+	{
+		String email = (String) session.getAttribute("email");
+		if(idC != null)
+		{
+			if(email != null)
+			{
+				Commentaire com = new Commentaire();
+				com = commentaireM.findCom(idC);
+				if(com != null)
+				{
+					Utilisateur u = new Utilisateur();
+					u = utilisateurM.findUser(com.getIdUser());
+					if(u.getEmail().equals(email))
+					{
+						model.addAttribute("commentaire", new Commentaire());
+						model.addAttribute("idC", idC);
+						return "modifycom";
+					}
+					else
+					{
+						return "rights";
+					}	
+				}
+				else
+				{
+					return "home";
+				}
+			}
+			else
+			{
+				return "signin";
+			}
+		}
+		else
+		{
+			return "home";
+		}
+	}
+	
+	@RequestMapping(value = "/modifyCom")
+	public String modifyCom(Model model, Commentaire commentaire, HttpSession session, Integer idC)
+	{
+		String email = (String) session.getAttribute("email");
+		if(idC != null)
+		{
+			if(email != null)
+			{
+				Commentaire com = new Commentaire();
+				com = commentaireM.findCom(idC);
+				if(com != null)
+				{
+					Utilisateur u = new Utilisateur();
+					u = utilisateurM.findUser(com.getIdUser());
+					if(u.getEmail().equals(email))
+					{
+						if(commentaire.getContenu() != null)
+						{
+							if(commentaire.getEtoile() == null)
+							{
+								commentaire.setEtoile(0);
+							}
+							commentaire.setId(com.getId());
+							commentaire.setIdSite(com.getIdSite());
+							commentaire.setIdUser(com.getIdUser());
+							commentaireM.modifyCom(commentaire);
+							return this.avis(model, commentaire.getIdSite());
+						}
+						else
+						{
+							return "modifycom";
+						}
+					}
+					else
+					{
+						return "rights";
+					}	
+				}
+				else
+				{
+					return "home";
+				}
+			}
+			else
+			{
+				return "signin";
+			}
+		}
+		else
+		{
+			return "home";
+		}
+	}
+	
+	@RequestMapping(value = "/deleteComment")
+	public String deleteComment(Model model, HttpSession session, Integer idC)
+	{
+		String email = (String) session.getAttribute("email");
+		if(idC != null)
+		{
+			if(email != null)
+			{
+				Commentaire com = new Commentaire();
+				com = commentaireM.findCom(idC);
+				if(com != null)
+				{
+					Utilisateur u = new Utilisateur();
+					u = utilisateurM.findUser(com.getIdUser());
+					if(u.getEmail().equals(email))
+					{
+						model.addAttribute("idC", idC);
+						return "confirmPassC";
+					}
+					else
+					{
+						return "rights";
+					}	
+				}
+				else
+				{
+					return "home";
+				}
+			}
+			else
+			{
+				return "signin";
+			}
+		}
+		else
+		{
+			return "home";
+		}
+	}
+	
+	@RequestMapping(value = "/confirmDeleteCom")
+	public String confirmDeleteCom(Model model, HttpSession session, Integer idC, @RequestParam("confirmP")String confirmP)
+	{
+		String email = (String) session.getAttribute("email");
+		String pass = (String) session.getAttribute("pass");
+		Boolean wrong = false;
+		if(idC != null)
+		{
+			if(email != null)
+			{
+				Commentaire com = new Commentaire();
+				com = commentaireM.findCom(idC);
+				if(com != null)
+				{
+					Utilisateur u = new Utilisateur();
+					u = utilisateurM.findUser(com.getIdUser());
+					if(u.getEmail().equals(email))
+					{
+						if(pass.equals(confirmP))
+						{
+							commentaireM.deleteCom(com);
+							return avis(model, com.getIdSite());
+						}
+						else
+						{
+							wrong = true;
+							return "rights";
+						}
+					}
+					else
+					{
+						return "rights";
+					}	
+				}
+				else
+				{
+					return "home";
+				}
+			}
+			else
+			{
+				return "signin";
+			}
+		}
+		else
+		{
+			return "home";
+		}
+	}
+	
 	
 }

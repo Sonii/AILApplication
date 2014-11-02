@@ -1,5 +1,7 @@
 package com.esiea.lookat.metier;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.esiea.lookat.dao.*;
@@ -28,7 +30,10 @@ public class CategorieMetierImpl implements ObjetMetier{
 	
 	@Override
 	public List<Site> getCategorieSites(Categorie catalogue) {
-		return dao.getCategorieSites(catalogue);
+		List<Site> sites = new ArrayList<Site>();
+		sites = dao.getCategorieSites(catalogue);
+		Collections.sort(sites);
+		return sites;
 	}
 
 	@Override

@@ -1,10 +1,11 @@
 package com.esiea.lookat.entities;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.List;
 
 
-public class Site implements Serializable{
+public class Site implements Serializable, Comparable<Site>{
 
 	private Integer id;
 	private String url;
@@ -98,6 +99,13 @@ public class Site implements Serializable{
 				+ ", description=" + description + ", nom=" + nom
 				+ ", nbClick=" + nbClick + ", listComms=" + listComms
 				+ ", idUser=" + idUser + "]";
+	}
+
+
+
+	@Override
+	public int compareTo(Site arg0) {
+		return arg0.getNbClick().compareTo(this.getNbClick());
 	}
 	
 }
