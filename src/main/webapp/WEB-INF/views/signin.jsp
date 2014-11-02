@@ -48,7 +48,7 @@
 
 	<br><br><br><br><br>
 	<div id="logDiv" class="jumbotron">
-		<h2>Sign in</h2>
+		<h2>Sign In</h2>
 		<br><br>
 		<c:if test="${wrong == true}">
 		   <p class="monErreur">Email ou Password incorrecte. Re-essayer :<p>
