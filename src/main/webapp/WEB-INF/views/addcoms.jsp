@@ -43,28 +43,24 @@
     </nav><!-- /.navbar -->
 
 	<br><br><br><br><br>
-	<f:form modelAttribute="user" method="post" action="signup"> 
+	<f:form modelAttribute="com" method="post" action="addcoms?idS=${idS}"> 
 			<br><br><br><br><br><br>
 		<div class="input-group">
-		  <span class="input-group-addon">Pseudo</span>
-		  <f:input path="pseudo" type="text" class="form-control" placeholder=""/>
+		  <span class="input-group-addon"></span>
+		  <f:textarea path="contenu" type="text" class="form-control" placeholder=""/>
 		</div>
 		<br>
-		<div class="input-group">
-		  <span class="input-group-addon">Mail Address</span>
-		  <f:input type="text" class="form-control" placeholder="email@example.com" path="email"/>
+			<div class="input-group">
+		  <span class="input-group-addon">Stars</span>
+		  <f:select name="selValue" class="selectpicker" path="etoile">
+			   <option value="0"> ------ </option>
+			   <option value="1">1</option>
+			   <option value="2">2</option>
+			   <option value="3">3</option>
+			   <option value="4">4</option>
+			   <option value="5">5</option>
+		  </f:select>
 		</div>
-		<br>
-		<div class="input-group">
-		  <span class="input-group-addon">Password</span>
-		  <f:input type="password" class="form-control" placeholder="" path="password"/>
-		</div>
-		<br>
-		<div class="input-group">
-		  <span class="input-group-addon">Password</span>
-		  <input type="password" class="form-control" placeholder="Confirm Password" name="confirmP"/>
-		</div>
-		<br>
 		<br><br><br>
 		<f:button type="submit" class="btn btn-primary btn-sm" id="btn">Save</f:button>
 	</f:form>
