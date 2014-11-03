@@ -54,7 +54,7 @@
 		<f:form name="publish" modelAttribute="site" method="post" action="savesite"  onsubmit="return validatePublish()">  
 			<div id="urlPublishForm" class="input-group input-group-lg form-group">
 			  <span class="input-group-addon"></span>
-			  <f:input  type="url" class="form-control" placeholder="URL" path="url"/>
+			  <f:input  type="url" class="form-control" placeholder="http://www.votresite.com" path="url"/>
 			</div>
 			<br>
 			<div id="nomPublishForm" class="input-group input-group-lg form-group">

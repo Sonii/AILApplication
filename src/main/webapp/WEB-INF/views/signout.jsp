@@ -48,7 +48,7 @@
 
 	<br><br><br><br><br>
 	<p  style="text-align : center">
-		<button class="btn btn-primary btn-sm"  onclick="window.location.href='signout'">Sign Out :(</button> 
+		<button class="btn btn-primary btn-sm"  onclick="window.location.href='signout'">Sign Out <span class="glyphicon glyphicon-off"></span></button> 
 	</p>
 </body>
 </html>
