@@ -28,11 +28,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@SessionAttributes("email")
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -248,6 +251,7 @@ public class HomeController {
 		}
 		else if((utilisateurM.findUserByEmail(email) != null) && (utilisateurM.findUserByEmail(email).getPassword().equals(pass)))
 		{
+
 			session.setAttribute("email", email);
 			session.setAttribute("pass", pass);
 			return "home";
@@ -428,8 +432,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/signout")
-	public String signout(Model model, HttpSession session) {
+	public String signout(Model model, HttpSession session, SessionStatus ss) {
+		session.removeAttribute("email");
+		session.removeAttribute("pass");
 		session.invalidate();
+		ss.setComplete();
 		return "signin";
 	}
 	

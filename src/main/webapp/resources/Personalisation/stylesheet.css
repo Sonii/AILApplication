@@ -58,3 +58,12 @@
     color: white;
     font-size: large;
 }
+
+.catDisplay{
+	display : inline-block;
+	text-align:center;
+	width : 320px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
