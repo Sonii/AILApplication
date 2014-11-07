@@ -4,6 +4,8 @@ Look-at est un site communautaire de partage de site. Je connais un bon site et 
 
 Utilisation :
 
+http://localhost:8080/lookat/home
+
 -En mode déconnecté et connecté
 Naviguer dans les catégories (Sport par exemple ;)
 Regarder les sites qui vous intéresse => cela fait monter le nombre de vue
